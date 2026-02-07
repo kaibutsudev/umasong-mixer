@@ -1,0 +1,1926 @@
+{
+  "1001": [
+    {
+      "characterId": 1001,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1001_01.opus"
+    },
+    {
+      "characterId": 1002,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1002_01.opus"
+    },
+    {
+      "characterId": 1003,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1003_01.opus"
+    },
+    {
+      "characterId": 1004,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1004_01.opus"
+    },
+    {
+      "characterId": 1005,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1005_01.opus"
+    },
+    {
+      "characterId": 1006,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1006_01.opus"
+    },
+    {
+      "characterId": 1007,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1007_01.opus"
+    },
+    {
+      "characterId": 1008,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1008_01.opus"
+    },
+    {
+      "characterId": 1009,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1009_01.opus"
+    },
+    {
+      "characterId": 1010,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1010_01.opus"
+    },
+    {
+      "characterId": 1011,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1011_01.opus"
+    },
+    {
+      "characterId": 1012,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1012_01.opus"
+    },
+    {
+      "characterId": 1013,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1013_01.opus"
+    },
+    {
+      "characterId": 1014,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1014_01.opus"
+    },
+    {
+      "characterId": 1015,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1015_01.opus"
+    },
+    {
+      "characterId": 1016,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1016_01.opus"
+    },
+    {
+      "characterId": 1017,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1017_01.opus"
+    },
+    {
+      "characterId": 1018,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1018_01.opus"
+    },
+    {
+      "characterId": 1019,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1019_01.opus"
+    },
+    {
+      "characterId": 1020,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1020_01.opus"
+    },
+    {
+      "characterId": 1021,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1021_01.opus"
+    },
+    {
+      "characterId": 1022,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1022_01.opus"
+    },
+    {
+      "characterId": 1023,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1023_01.opus"
+    },
+    {
+      "characterId": 1024,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1024_01.opus"
+    },
+    {
+      "characterId": 1025,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1025_01.opus"
+    },
+    {
+      "characterId": 1026,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1026_01.opus"
+    },
+    {
+      "characterId": 1027,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1027_01.opus"
+    },
+    {
+      "characterId": 1028,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1028_01.opus"
+    },
+    {
+      "characterId": 1030,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1030_01.opus"
+    },
+    {
+      "characterId": 1031,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1031_01.opus"
+    },
+    {
+      "characterId": 1032,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1032_01.opus"
+    },
+    {
+      "characterId": 1033,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1033_01.opus"
+    },
+    {
+      "characterId": 1034,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1034_01.opus"
+    },
+    {
+      "characterId": 1035,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1035_01.opus"
+    },
+    {
+      "characterId": 1036,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1036_01.opus"
+    },
+    {
+      "characterId": 1037,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1037_01.opus"
+    },
+    {
+      "characterId": 1038,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1038_01.opus"
+    },
+    {
+      "characterId": 1039,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1039_01.opus"
+    },
+    {
+      "characterId": 1040,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1040_01.opus"
+    },
+    {
+      "characterId": 1041,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1041_01.opus"
+    },
+    {
+      "characterId": 1044,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1044_01.opus"
+    },
+    {
+      "characterId": 1045,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1045_01.opus"
+    },
+    {
+      "characterId": 1046,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1046_01.opus"
+    },
+    {
+      "characterId": 1048,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1048_01.opus"
+    },
+    {
+      "characterId": 1050,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1050_01.opus"
+    },
+    {
+      "characterId": 1051,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1051_01.opus"
+    },
+    {
+      "characterId": 1052,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1052_01.opus"
+    },
+    {
+      "characterId": 1056,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1056_01.opus"
+    },
+    {
+      "characterId": 1058,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1058_01.opus"
+    },
+    {
+      "characterId": 1059,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1059_01.opus"
+    },
+    {
+      "characterId": 1060,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1060_01.opus"
+    },
+    {
+      "characterId": 1061,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1061_01.opus"
+    },
+    {
+      "characterId": 1062,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1062_01.opus"
+    },
+    {
+      "characterId": 1064,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1064_01.opus"
+    },
+    {
+      "characterId": 1067,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1067_01.opus"
+    },
+    {
+      "characterId": 1068,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1068_01.opus"
+    },
+    {
+      "characterId": 1069,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1069_01.opus"
+    },
+    {
+      "characterId": 1071,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1071_01.opus"
+    },
+    {
+      "characterId": 1072,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1072_01.opus"
+    },
+    {
+      "characterId": 1074,
+      "version": "01",
+      "file": "/assets/song/1001/voices/snd_bgm_live_1001_chara_1074_01.opus"
+    }
+  ],
+  "1004": [
+    {
+      "characterId": 1001,
+      "version": "01",
+      "file": "/assets/song/1004/voices/snd_bgm_live_1004_chara_1001_01.opus"
+    },
+    {
+      "characterId": 1002,
+      "version": "01",
+      "file": "/assets/song/1004/voices/snd_bgm_live_1004_chara_1002_01.opus"
+    },
+    {
+      "characterId": 1003,
+      "version": "01",
+      "file": "/assets/song/1004/voices/snd_bgm_live_1004_chara_1003_01.opus"
+    },
+    {
+      "characterId": 1006,
+      "version": "01",
+      "file": "/assets/song/1004/voices/snd_bgm_live_1004_chara_1006_01.opus"
+    },
+    {
+      "characterId": 1007,
+      "version": "01",
+      "file": "/assets/song/1004/voices/snd_bgm_live_1004_chara_1007_01.opus"
+    },
+    {
+      "characterId": 1008,
+      "version": "01",
+      "file": "/assets/song/1004/voices/snd_bgm_live_1004_chara_1008_01.opus"
+    },
+    {
+      "characterId": 1009,
+      "version": "01",
+      "file": "/assets/song/1004/voices/snd_bgm_live_1004_chara_1009_01.opus"
+    },
+    {
+      "characterId": 1010,
+      "version": "01",
+      "file": "/assets/song/1004/voices/snd_bgm_live_1004_chara_1010_01.opus"
+    },
+    {
+      "characterId": 1011,
+      "version": "01",
+      "file": "/assets/song/1004/voices/snd_bgm_live_1004_chara_1011_01.opus"
+    },
+    {
+      "characterId": 1013,
+      "version": "01",
+      "file": "/assets/song/1004/voices/snd_bgm_live_1004_chara_1013_01.opus"
+    },
+    {
+      "characterId": 1014,
+      "version": "01",
+      "file": "/assets/song/1004/voices/snd_bgm_live_1004_chara_1014_01.opus"
+    },
+    {
+      "characterId": 1015,
+      "version": "01",
+      "file": "/assets/song/1004/voices/snd_bgm_live_1004_chara_1015_01.opus"
+    },
+    {
+      "characterId": 1016,
+      "version": "01",
+      "file": "/assets/song/1004/voices/snd_bgm_live_1004_chara_1016_01.opus"
+    },
+    {
+      "characterId": 1017,
+      "version": "01",
+      "file": "/assets/song/1004/voices/snd_bgm_live_1004_chara_1017_01.opus"
+    },
+    {
+      "characterId": 1018,
+      "version": "01",
+      "file": "/assets/song/1004/voices/snd_bgm_live_1004_chara_1018_01.opus"
+    },
+    {
+      "characterId": 1023,
+      "version": "01",
+      "file": "/assets/song/1004/voices/snd_bgm_live_1004_chara_1023_01.opus"
+    },
+    {
+      "characterId": 1024,
+      "version": "01",
+      "file": "/assets/song/1004/voices/snd_bgm_live_1004_chara_1024_01.opus"
+    },
+    {
+      "characterId": 1026,
+      "version": "01",
+      "file": "/assets/song/1004/voices/snd_bgm_live_1004_chara_1026_01.opus"
+    },
+    {
+      "characterId": 1030,
+      "version": "01",
+      "file": "/assets/song/1004/voices/snd_bgm_live_1004_chara_1030_01.opus"
+    },
+    {
+      "characterId": 1035,
+      "version": "01",
+      "file": "/assets/song/1004/voices/snd_bgm_live_1004_chara_1035_01.opus"
+    },
+    {
+      "characterId": 1041,
+      "version": "01",
+      "file": "/assets/song/1004/voices/snd_bgm_live_1004_chara_1041_01.opus"
+    },
+    {
+      "characterId": 1050,
+      "version": "01",
+      "file": "/assets/song/1004/voices/snd_bgm_live_1004_chara_1050_01.opus"
+    },
+    {
+      "characterId": 1052,
+      "version": "01",
+      "file": "/assets/song/1004/voices/snd_bgm_live_1004_chara_1052_01.opus"
+    },
+    {
+      "characterId": 1056,
+      "version": "01",
+      "file": "/assets/song/1004/voices/snd_bgm_live_1004_chara_1056_01.opus"
+    },
+    {
+      "characterId": 1060,
+      "version": "01",
+      "file": "/assets/song/1004/voices/snd_bgm_live_1004_chara_1060_01.opus"
+    },
+    {
+      "characterId": 1061,
+      "version": "01",
+      "file": "/assets/song/1004/voices/snd_bgm_live_1004_chara_1061_01.opus"
+    },
+    {
+      "characterId": 1063,
+      "version": "01",
+      "file": "/assets/song/1004/voices/snd_bgm_live_1004_chara_1063_01.opus"
+    },
+    {
+      "characterId": 1064,
+      "version": "01",
+      "file": "/assets/song/1004/voices/snd_bgm_live_1004_chara_1064_01.opus"
+    },
+    {
+      "characterId": 1066,
+      "version": "01",
+      "file": "/assets/song/1004/voices/snd_bgm_live_1004_chara_1066_01.opus"
+    },
+    {
+      "characterId": 1067,
+      "version": "01",
+      "file": "/assets/song/1004/voices/snd_bgm_live_1004_chara_1067_01.opus"
+    },
+    {
+      "characterId": 1068,
+      "version": "01",
+      "file": "/assets/song/1004/voices/snd_bgm_live_1004_chara_1068_01.opus"
+    }
+  ],
+  "1005": [
+    {
+      "characterId": 1009,
+      "version": "01",
+      "file": "/assets/song/1005/voices/snd_bgm_live_1005_chara_1009_01.opus"
+    },
+    {
+      "characterId": 1012,
+      "version": "01",
+      "file": "/assets/song/1005/voices/snd_bgm_live_1005_chara_1012_01.opus"
+    },
+    {
+      "characterId": 1018,
+      "version": "01",
+      "file": "/assets/song/1005/voices/snd_bgm_live_1005_chara_1018_01.opus"
+    },
+    {
+      "characterId": 1022,
+      "version": "01",
+      "file": "/assets/song/1005/voices/snd_bgm_live_1005_chara_1022_01.opus"
+    },
+    {
+      "characterId": 1039,
+      "version": "01",
+      "file": "/assets/song/1005/voices/snd_bgm_live_1005_chara_1039_01.opus"
+    },
+    {
+      "characterId": 1044,
+      "version": "01",
+      "file": "/assets/song/1005/voices/snd_bgm_live_1005_chara_1044_01.opus"
+    },
+    {
+      "characterId": 1051,
+      "version": "01",
+      "file": "/assets/song/1005/voices/snd_bgm_live_1005_chara_1051_01.opus"
+    },
+    {
+      "characterId": 1052,
+      "version": "01",
+      "file": "/assets/song/1005/voices/snd_bgm_live_1005_chara_1052_01.opus"
+    },
+    {
+      "characterId": 1059,
+      "version": "01",
+      "file": "/assets/song/1005/voices/snd_bgm_live_1005_chara_1059_01.opus"
+    }
+  ],
+  "1006": [
+    {
+      "characterId": 1001,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1001_01.opus"
+    },
+    {
+      "characterId": 1002,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1002_01.opus"
+    },
+    {
+      "characterId": 1003,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1003_01.opus"
+    },
+    {
+      "characterId": 1004,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1004_01.opus"
+    },
+    {
+      "characterId": 1005,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1005_01.opus"
+    },
+    {
+      "characterId": 1006,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1006_01.opus"
+    },
+    {
+      "characterId": 1007,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1007_01.opus"
+    },
+    {
+      "characterId": 1008,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1008_01.opus"
+    },
+    {
+      "characterId": 1009,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1009_01.opus"
+    },
+    {
+      "characterId": 1010,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1010_01.opus"
+    },
+    {
+      "characterId": 1011,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1011_01.opus"
+    },
+    {
+      "characterId": 1012,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1012_01.opus"
+    },
+    {
+      "characterId": 1013,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1013_01.opus"
+    },
+    {
+      "characterId": 1014,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1014_01.opus"
+    },
+    {
+      "characterId": 1015,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1015_01.opus"
+    },
+    {
+      "characterId": 1016,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1016_01.opus"
+    },
+    {
+      "characterId": 1017,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1017_01.opus"
+    },
+    {
+      "characterId": 1018,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1018_01.opus"
+    },
+    {
+      "characterId": 1019,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1019_01.opus"
+    },
+    {
+      "characterId": 1020,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1020_01.opus"
+    },
+    {
+      "characterId": 1021,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1021_01.opus"
+    },
+    {
+      "characterId": 1022,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1022_01.opus"
+    },
+    {
+      "characterId": 1023,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1023_01.opus"
+    },
+    {
+      "characterId": 1024,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1024_01.opus"
+    },
+    {
+      "characterId": 1025,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1025_01.opus"
+    },
+    {
+      "characterId": 1026,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1026_01.opus"
+    },
+    {
+      "characterId": 1027,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1027_01.opus"
+    },
+    {
+      "characterId": 1028,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1028_01.opus"
+    },
+    {
+      "characterId": 1030,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1030_01.opus"
+    },
+    {
+      "characterId": 1031,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1031_01.opus"
+    },
+    {
+      "characterId": 1032,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1032_01.opus"
+    },
+    {
+      "characterId": 1033,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1033_01.opus"
+    },
+    {
+      "characterId": 1034,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1034_01.opus"
+    },
+    {
+      "characterId": 1035,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1035_01.opus"
+    },
+    {
+      "characterId": 1036,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1036_01.opus"
+    },
+    {
+      "characterId": 1037,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1037_01.opus"
+    },
+    {
+      "characterId": 1038,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1038_01.opus"
+    },
+    {
+      "characterId": 1039,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1039_01.opus"
+    },
+    {
+      "characterId": 1040,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1040_01.opus"
+    },
+    {
+      "characterId": 1041,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1041_01.opus"
+    },
+    {
+      "characterId": 1044,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1044_01.opus"
+    },
+    {
+      "characterId": 1045,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1045_01.opus"
+    },
+    {
+      "characterId": 1046,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1046_01.opus"
+    },
+    {
+      "characterId": 1048,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1048_01.opus"
+    },
+    {
+      "characterId": 1050,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1050_01.opus"
+    },
+    {
+      "characterId": 1051,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1051_01.opus"
+    },
+    {
+      "characterId": 1052,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1052_01.opus"
+    },
+    {
+      "characterId": 1056,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1056_01.opus"
+    },
+    {
+      "characterId": 1058,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1058_01.opus"
+    },
+    {
+      "characterId": 1059,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1059_01.opus"
+    },
+    {
+      "characterId": 1060,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1060_01.opus"
+    },
+    {
+      "characterId": 1061,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1061_01.opus"
+    },
+    {
+      "characterId": 1062,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1062_01.opus"
+    },
+    {
+      "characterId": 1064,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1064_01.opus"
+    },
+    {
+      "characterId": 1067,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1067_01.opus"
+    },
+    {
+      "characterId": 1068,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1068_01.opus"
+    },
+    {
+      "characterId": 1069,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1069_01.opus"
+    },
+    {
+      "characterId": 1071,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1071_01.opus"
+    },
+    {
+      "characterId": 1072,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1072_01.opus"
+    },
+    {
+      "characterId": 1074,
+      "version": "01",
+      "file": "/assets/song/1006/voices/snd_bgm_live_1006_chara_1074_01.opus"
+    }
+  ],
+  "1007": [
+    {
+      "characterId": 1004,
+      "version": "01",
+      "file": "/assets/song/1007/voices/snd_bgm_live_1007_chara_1004_01.opus"
+    },
+    {
+      "characterId": 1005,
+      "version": "01",
+      "file": "/assets/song/1007/voices/snd_bgm_live_1007_chara_1005_01.opus"
+    },
+    {
+      "characterId": 1011,
+      "version": "01",
+      "file": "/assets/song/1007/voices/snd_bgm_live_1007_chara_1011_01.opus"
+    },
+    {
+      "characterId": 1012,
+      "version": "01",
+      "file": "/assets/song/1007/voices/snd_bgm_live_1007_chara_1012_01.opus"
+    },
+    {
+      "characterId": 1032,
+      "version": "01",
+      "file": "/assets/song/1007/voices/snd_bgm_live_1007_chara_1032_01.opus"
+    },
+    {
+      "characterId": 1033,
+      "version": "01",
+      "file": "/assets/song/1007/voices/snd_bgm_live_1007_chara_1033_01.opus"
+    },
+    {
+      "characterId": 1035,
+      "version": "01",
+      "file": "/assets/song/1007/voices/snd_bgm_live_1007_chara_1035_01.opus"
+    },
+    {
+      "characterId": 1040,
+      "version": "01",
+      "file": "/assets/song/1007/voices/snd_bgm_live_1007_chara_1040_01.opus"
+    },
+    {
+      "characterId": 1048,
+      "version": "01",
+      "file": "/assets/song/1007/voices/snd_bgm_live_1007_chara_1048_01.opus"
+    },
+    {
+      "characterId": 1069,
+      "version": "01",
+      "file": "/assets/song/1007/voices/snd_bgm_live_1007_chara_1069_01.opus"
+    }
+  ],
+  "1008": [
+    {
+      "characterId": 1001,
+      "version": "01",
+      "file": "/assets/song/1008/voices/snd_bgm_live_1008_chara_1001_01.opus"
+    },
+    {
+      "characterId": 1002,
+      "version": "01",
+      "file": "/assets/song/1008/voices/snd_bgm_live_1008_chara_1002_01.opus"
+    },
+    {
+      "characterId": 1011,
+      "version": "01",
+      "file": "/assets/song/1008/voices/snd_bgm_live_1008_chara_1011_01.opus"
+    },
+    {
+      "characterId": 1013,
+      "version": "01",
+      "file": "/assets/song/1008/voices/snd_bgm_live_1008_chara_1013_01.opus"
+    },
+    {
+      "characterId": 1015,
+      "version": "01",
+      "file": "/assets/song/1008/voices/snd_bgm_live_1008_chara_1015_01.opus"
+    },
+    {
+      "characterId": 1016,
+      "version": "01",
+      "file": "/assets/song/1008/voices/snd_bgm_live_1008_chara_1016_01.opus"
+    },
+    {
+      "characterId": 1017,
+      "version": "01",
+      "file": "/assets/song/1008/voices/snd_bgm_live_1008_chara_1017_01.opus"
+    },
+    {
+      "characterId": 1018,
+      "version": "01",
+      "file": "/assets/song/1008/voices/snd_bgm_live_1008_chara_1018_01.opus"
+    },
+    {
+      "characterId": 1020,
+      "version": "01",
+      "file": "/assets/song/1008/voices/snd_bgm_live_1008_chara_1020_01.opus"
+    },
+    {
+      "characterId": 1021,
+      "version": "01",
+      "file": "/assets/song/1008/voices/snd_bgm_live_1008_chara_1021_01.opus"
+    },
+    {
+      "characterId": 1030,
+      "version": "01",
+      "file": "/assets/song/1008/voices/snd_bgm_live_1008_chara_1030_01.opus"
+    },
+    {
+      "characterId": 1037,
+      "version": "01",
+      "file": "/assets/song/1008/voices/snd_bgm_live_1008_chara_1037_01.opus"
+    },
+    {
+      "characterId": 1045,
+      "version": "01",
+      "file": "/assets/song/1008/voices/snd_bgm_live_1008_chara_1045_01.opus"
+    },
+    {
+      "characterId": 1047,
+      "version": "01",
+      "file": "/assets/song/1008/voices/snd_bgm_live_1008_chara_1047_01.opus"
+    },
+    {
+      "characterId": 1048,
+      "version": "01",
+      "file": "/assets/song/1008/voices/snd_bgm_live_1008_chara_1048_01.opus"
+    },
+    {
+      "characterId": 1060,
+      "version": "01",
+      "file": "/assets/song/1008/voices/snd_bgm_live_1008_chara_1060_01.opus"
+    },
+    {
+      "characterId": 1074,
+      "version": "01",
+      "file": "/assets/song/1008/voices/snd_bgm_live_1008_chara_1074_01.opus"
+    }
+  ],
+  "1009": [
+    {
+      "characterId": 1004,
+      "version": "01",
+      "file": "/assets/song/1009/voices/snd_bgm_live_1009_chara_1004_01.opus"
+    },
+    {
+      "characterId": 1005,
+      "version": "01",
+      "file": "/assets/song/1009/voices/snd_bgm_live_1009_chara_1005_01.opus"
+    },
+    {
+      "characterId": 1006,
+      "version": "01",
+      "file": "/assets/song/1009/voices/snd_bgm_live_1009_chara_1006_01.opus"
+    },
+    {
+      "characterId": 1010,
+      "version": "01",
+      "file": "/assets/song/1009/voices/snd_bgm_live_1009_chara_1010_01.opus"
+    },
+    {
+      "characterId": 1019,
+      "version": "01",
+      "file": "/assets/song/1009/voices/snd_bgm_live_1009_chara_1019_01.opus"
+    },
+    {
+      "characterId": 1043,
+      "version": "01",
+      "file": "/assets/song/1009/voices/snd_bgm_live_1009_chara_1043_01.opus"
+    },
+    {
+      "characterId": 1046,
+      "version": "01",
+      "file": "/assets/song/1009/voices/snd_bgm_live_1009_chara_1046_01.opus"
+    },
+    {
+      "characterId": 1052,
+      "version": "01",
+      "file": "/assets/song/1009/voices/snd_bgm_live_1009_chara_1052_01.opus"
+    },
+    {
+      "characterId": 1056,
+      "version": "01",
+      "file": "/assets/song/1009/voices/snd_bgm_live_1009_chara_1056_01.opus"
+    },
+    {
+      "characterId": 1058,
+      "version": "01",
+      "file": "/assets/song/1009/voices/snd_bgm_live_1009_chara_1058_01.opus"
+    }
+  ],
+  "1010": [
+    {
+      "characterId": 1002,
+      "version": "01",
+      "file": "/assets/song/1010/voices/snd_bgm_live_1010_chara_1002_01.opus"
+    },
+    {
+      "characterId": 1003,
+      "version": "01",
+      "file": "/assets/song/1010/voices/snd_bgm_live_1010_chara_1003_01.opus"
+    },
+    {
+      "characterId": 1007,
+      "version": "01",
+      "file": "/assets/song/1010/voices/snd_bgm_live_1010_chara_1007_01.opus"
+    },
+    {
+      "characterId": 1009,
+      "version": "01",
+      "file": "/assets/song/1010/voices/snd_bgm_live_1010_chara_1009_01.opus"
+    },
+    {
+      "characterId": 1013,
+      "version": "01",
+      "file": "/assets/song/1010/voices/snd_bgm_live_1010_chara_1013_01.opus"
+    },
+    {
+      "characterId": 1014,
+      "version": "01",
+      "file": "/assets/song/1010/voices/snd_bgm_live_1010_chara_1014_01.opus"
+    },
+    {
+      "characterId": 1015,
+      "version": "01",
+      "file": "/assets/song/1010/voices/snd_bgm_live_1010_chara_1015_01.opus"
+    },
+    {
+      "characterId": 1024,
+      "version": "01",
+      "file": "/assets/song/1010/voices/snd_bgm_live_1010_chara_1024_01.opus"
+    },
+    {
+      "characterId": 1027,
+      "version": "01",
+      "file": "/assets/song/1010/voices/snd_bgm_live_1010_chara_1027_01.opus"
+    },
+    {
+      "characterId": 1058,
+      "version": "01",
+      "file": "/assets/song/1010/voices/snd_bgm_live_1010_chara_1058_01.opus"
+    },
+    {
+      "characterId": 1059,
+      "version": "01",
+      "file": "/assets/song/1010/voices/snd_bgm_live_1010_chara_1059_01.opus"
+    }
+  ],
+  "1012": [
+    {
+      "characterId": 1001,
+      "version": "01",
+      "file": "/assets/song/1012/voices/snd_bgm_live_1012_chara_1001_01.opus"
+    },
+    {
+      "characterId": 1002,
+      "version": "01",
+      "file": "/assets/song/1012/voices/snd_bgm_live_1012_chara_1002_01.opus"
+    },
+    {
+      "characterId": 1003,
+      "version": "01",
+      "file": "/assets/song/1012/voices/snd_bgm_live_1012_chara_1003_01.opus"
+    },
+    {
+      "characterId": 1004,
+      "version": "01",
+      "file": "/assets/song/1012/voices/snd_bgm_live_1012_chara_1004_01.opus"
+    },
+    {
+      "characterId": 1005,
+      "version": "01",
+      "file": "/assets/song/1012/voices/snd_bgm_live_1012_chara_1005_01.opus"
+    },
+    {
+      "characterId": 1006,
+      "version": "01",
+      "file": "/assets/song/1012/voices/snd_bgm_live_1012_chara_1006_01.opus"
+    },
+    {
+      "characterId": 1007,
+      "version": "01",
+      "file": "/assets/song/1012/voices/snd_bgm_live_1012_chara_1007_01.opus"
+    },
+    {
+      "characterId": 1008,
+      "version": "01",
+      "file": "/assets/song/1012/voices/snd_bgm_live_1012_chara_1008_01.opus"
+    },
+    {
+      "characterId": 1009,
+      "version": "01",
+      "file": "/assets/song/1012/voices/snd_bgm_live_1012_chara_1009_01.opus"
+    },
+    {
+      "characterId": 1010,
+      "version": "01",
+      "file": "/assets/song/1012/voices/snd_bgm_live_1012_chara_1010_01.opus"
+    },
+    {
+      "characterId": 1011,
+      "version": "01",
+      "file": "/assets/song/1012/voices/snd_bgm_live_1012_chara_1011_01.opus"
+    },
+    {
+      "characterId": 1012,
+      "version": "01",
+      "file": "/assets/song/1012/voices/snd_bgm_live_1012_chara_1012_01.opus"
+    },
+    {
+      "characterId": 1013,
+      "version": "01",
+      "file": "/assets/song/1012/voices/snd_bgm_live_1012_chara_1013_01.opus"
+    },
+    {
+      "characterId": 1014,
+      "version": "01",
+      "file": "/assets/song/1012/voices/snd_bgm_live_1012_chara_1014_01.opus"
+    },
+    {
+      "characterId": 1015,
+      "version": "01",
+      "file": "/assets/song/1012/voices/snd_bgm_live_1012_chara_1015_01.opus"
+    },
+    {
+      "characterId": 1017,
+      "version": "01",
+      "file": "/assets/song/1012/voices/snd_bgm_live_1012_chara_1017_01.opus"
+    },
+    {
+      "characterId": 1018,
+      "version": "01",
+      "file": "/assets/song/1012/voices/snd_bgm_live_1012_chara_1018_01.opus"
+    },
+    {
+      "characterId": 1020,
+      "version": "01",
+      "file": "/assets/song/1012/voices/snd_bgm_live_1012_chara_1020_01.opus"
+    }
+  ],
+  "1025": [
+    {
+      "characterId": 1013,
+      "version": "01",
+      "file": "/assets/song/1025/voices/snd_bgm_live_1025_chara_1013_01.opus"
+    }
+  ],
+  "1026": [
+    {
+      "characterId": 1030,
+      "version": "01",
+      "file": "/assets/song/1026/voices/snd_bgm_live_1026_chara_1030_01.opus"
+    }
+  ],
+  "1027": [
+    {
+      "characterId": 1006,
+      "version": "01",
+      "file": "/assets/song/1027/voices/snd_bgm_live_1027_chara_1006_01.opus"
+    },
+    {
+      "characterId": 1008,
+      "version": "01",
+      "file": "/assets/song/1027/voices/snd_bgm_live_1027_chara_1008_01.opus"
+    },
+    {
+      "characterId": 1010,
+      "version": "01",
+      "file": "/assets/song/1027/voices/snd_bgm_live_1027_chara_1010_01.opus"
+    },
+    {
+      "characterId": 1014,
+      "version": "01",
+      "file": "/assets/song/1027/voices/snd_bgm_live_1027_chara_1014_01.opus"
+    },
+    {
+      "characterId": 1019,
+      "version": "01",
+      "file": "/assets/song/1027/voices/snd_bgm_live_1027_chara_1019_01.opus"
+    },
+    {
+      "characterId": 1028,
+      "version": "01",
+      "file": "/assets/song/1027/voices/snd_bgm_live_1027_chara_1028_01.opus"
+    },
+    {
+      "characterId": 1038,
+      "version": "01",
+      "file": "/assets/song/1027/voices/snd_bgm_live_1027_chara_1038_01.opus"
+    },
+    {
+      "characterId": 1041,
+      "version": "01",
+      "file": "/assets/song/1027/voices/snd_bgm_live_1027_chara_1041_01.opus"
+    },
+    {
+      "characterId": 1054,
+      "version": "01",
+      "file": "/assets/song/1027/voices/snd_bgm_live_1027_chara_1054_01.opus"
+    },
+    {
+      "characterId": 1060,
+      "version": "01",
+      "file": "/assets/song/1027/voices/snd_bgm_live_1027_chara_1060_01.opus"
+    },
+    {
+      "characterId": 1061,
+      "version": "01",
+      "file": "/assets/song/1027/voices/snd_bgm_live_1027_chara_1061_01.opus"
+    },
+    {
+      "characterId": 1071,
+      "version": "01",
+      "file": "/assets/song/1027/voices/snd_bgm_live_1027_chara_1071_01.opus"
+    }
+  ],
+  "1028": [
+    {
+      "characterId": 1001,
+      "version": "01",
+      "file": "/assets/song/1028/voices/snd_bgm_live_1028_chara_1001_01.opus"
+    },
+    {
+      "characterId": 1003,
+      "version": "01",
+      "file": "/assets/song/1028/voices/snd_bgm_live_1028_chara_1003_01.opus"
+    },
+    {
+      "characterId": 1007,
+      "version": "01",
+      "file": "/assets/song/1028/voices/snd_bgm_live_1028_chara_1007_01.opus"
+    },
+    {
+      "characterId": 1008,
+      "version": "01",
+      "file": "/assets/song/1028/voices/snd_bgm_live_1028_chara_1008_01.opus"
+    },
+    {
+      "characterId": 1016,
+      "version": "01",
+      "file": "/assets/song/1028/voices/snd_bgm_live_1028_chara_1016_01.opus"
+    },
+    {
+      "characterId": 1017,
+      "version": "01",
+      "file": "/assets/song/1028/voices/snd_bgm_live_1028_chara_1017_01.opus"
+    },
+    {
+      "characterId": 1020,
+      "version": "01",
+      "file": "/assets/song/1028/voices/snd_bgm_live_1028_chara_1020_01.opus"
+    },
+    {
+      "characterId": 1023,
+      "version": "01",
+      "file": "/assets/song/1028/voices/snd_bgm_live_1028_chara_1023_01.opus"
+    },
+    {
+      "characterId": 1024,
+      "version": "01",
+      "file": "/assets/song/1028/voices/snd_bgm_live_1028_chara_1024_01.opus"
+    },
+    {
+      "characterId": 1025,
+      "version": "01",
+      "file": "/assets/song/1028/voices/snd_bgm_live_1028_chara_1025_01.opus"
+    },
+    {
+      "characterId": 1032,
+      "version": "01",
+      "file": "/assets/song/1028/voices/snd_bgm_live_1028_chara_1032_01.opus"
+    },
+    {
+      "characterId": 1035,
+      "version": "01",
+      "file": "/assets/song/1028/voices/snd_bgm_live_1028_chara_1035_01.opus"
+    },
+    {
+      "characterId": 1040,
+      "version": "01",
+      "file": "/assets/song/1028/voices/snd_bgm_live_1028_chara_1040_01.opus"
+    },
+    {
+      "characterId": 1045,
+      "version": "01",
+      "file": "/assets/song/1028/voices/snd_bgm_live_1028_chara_1045_01.opus"
+    },
+    {
+      "characterId": 1050,
+      "version": "01",
+      "file": "/assets/song/1028/voices/snd_bgm_live_1028_chara_1050_01.opus"
+    },
+    {
+      "characterId": 1056,
+      "version": "01",
+      "file": "/assets/song/1028/voices/snd_bgm_live_1028_chara_1056_01.opus"
+    },
+    {
+      "characterId": 1057,
+      "version": "01",
+      "file": "/assets/song/1028/voices/snd_bgm_live_1028_chara_1057_01.opus"
+    }
+  ],
+  "1030": [
+    {
+      "characterId": 1023,
+      "version": "01",
+      "file": "/assets/song/1030/voices/snd_bgm_live_1030_chara_1023_01.opus"
+    },
+    {
+      "characterId": 1035,
+      "version": "01",
+      "file": "/assets/song/1030/voices/snd_bgm_live_1030_chara_1035_01.opus"
+    },
+    {
+      "characterId": 1050,
+      "version": "01",
+      "file": "/assets/song/1030/voices/snd_bgm_live_1030_chara_1050_01.opus"
+    }
+  ],
+  "1031": [
+    {
+      "characterId": 1016,
+      "version": "01",
+      "file": "/assets/song/1031/voices/snd_bgm_live_1031_chara_1016_01.opus"
+    }
+  ],
+  "1032": [
+    {
+      "characterId": 1001,
+      "version": "01",
+      "file": "/assets/song/1032/voices/snd_bgm_live_1032_chara_1001_01.opus"
+    },
+    {
+      "characterId": 1002,
+      "version": "01",
+      "file": "/assets/song/1032/voices/snd_bgm_live_1032_chara_1002_01.opus"
+    },
+    {
+      "characterId": 1003,
+      "version": "01",
+      "file": "/assets/song/1032/voices/snd_bgm_live_1032_chara_1003_01.opus"
+    },
+    {
+      "characterId": 1007,
+      "version": "01",
+      "file": "/assets/song/1032/voices/snd_bgm_live_1032_chara_1007_01.opus"
+    },
+    {
+      "characterId": 1008,
+      "version": "01",
+      "file": "/assets/song/1032/voices/snd_bgm_live_1032_chara_1008_01.opus"
+    },
+    {
+      "characterId": 1009,
+      "version": "01",
+      "file": "/assets/song/1032/voices/snd_bgm_live_1032_chara_1009_01.opus"
+    },
+    {
+      "characterId": 1013,
+      "version": "01",
+      "file": "/assets/song/1032/voices/snd_bgm_live_1032_chara_1013_01.opus"
+    },
+    {
+      "characterId": 1023,
+      "version": "01",
+      "file": "/assets/song/1032/voices/snd_bgm_live_1032_chara_1023_01.opus"
+    },
+    {
+      "characterId": 1026,
+      "version": "01",
+      "file": "/assets/song/1032/voices/snd_bgm_live_1032_chara_1026_01.opus"
+    },
+    {
+      "characterId": 1030,
+      "version": "01",
+      "file": "/assets/song/1032/voices/snd_bgm_live_1032_chara_1030_01.opus"
+    },
+    {
+      "characterId": 1060,
+      "version": "01",
+      "file": "/assets/song/1032/voices/snd_bgm_live_1032_chara_1060_01.opus"
+    },
+    {
+      "characterId": 1062,
+      "version": "01",
+      "file": "/assets/song/1032/voices/snd_bgm_live_1032_chara_1062_01.opus"
+    },
+    {
+      "characterId": 1063,
+      "version": "01",
+      "file": "/assets/song/1032/voices/snd_bgm_live_1032_chara_1063_01.opus"
+    },
+    {
+      "characterId": 1064,
+      "version": "01",
+      "file": "/assets/song/1032/voices/snd_bgm_live_1032_chara_1064_01.opus"
+    },
+    {
+      "characterId": 1065,
+      "version": "01",
+      "file": "/assets/song/1032/voices/snd_bgm_live_1032_chara_1065_01.opus"
+    },
+    {
+      "characterId": 1066,
+      "version": "01",
+      "file": "/assets/song/1032/voices/snd_bgm_live_1032_chara_1066_01.opus"
+    },
+    {
+      "characterId": 1067,
+      "version": "01",
+      "file": "/assets/song/1032/voices/snd_bgm_live_1032_chara_1067_01.opus"
+    },
+    {
+      "characterId": 1068,
+      "version": "01",
+      "file": "/assets/song/1032/voices/snd_bgm_live_1032_chara_1068_01.opus"
+    }
+  ],
+  "1034": [
+    {
+      "characterId": 1001,
+      "version": "01",
+      "file": "/assets/song/1034/voices/snd_bgm_live_1034_chara_1001_01.opus"
+    },
+    {
+      "characterId": 1011,
+      "version": "01",
+      "file": "/assets/song/1034/voices/snd_bgm_live_1034_chara_1011_01.opus"
+    },
+    {
+      "characterId": 1014,
+      "version": "01",
+      "file": "/assets/song/1034/voices/snd_bgm_live_1034_chara_1014_01.opus"
+    },
+    {
+      "characterId": 1020,
+      "version": "01",
+      "file": "/assets/song/1034/voices/snd_bgm_live_1034_chara_1020_01.opus"
+    },
+    {
+      "characterId": 1061,
+      "version": "01",
+      "file": "/assets/song/1034/voices/snd_bgm_live_1034_chara_1061_01.opus"
+    }
+  ],
+  "1035": [
+    {
+      "characterId": 1010,
+      "version": "01",
+      "file": "/assets/song/1035/voices/snd_bgm_live_1035_chara_1010_01.opus"
+    },
+    {
+      "characterId": 1026,
+      "version": "01",
+      "file": "/assets/song/1035/voices/snd_bgm_live_1035_chara_1026_01.opus"
+    },
+    {
+      "characterId": 1027,
+      "version": "01",
+      "file": "/assets/song/1035/voices/snd_bgm_live_1035_chara_1027_01.opus"
+    },
+    {
+      "characterId": 1030,
+      "version": "01",
+      "file": "/assets/song/1035/voices/snd_bgm_live_1035_chara_1030_01.opus"
+    },
+    {
+      "characterId": 1039,
+      "version": "01",
+      "file": "/assets/song/1035/voices/snd_bgm_live_1035_chara_1039_01.opus"
+    },
+    {
+      "characterId": 1041,
+      "version": "01",
+      "file": "/assets/song/1035/voices/snd_bgm_live_1035_chara_1041_01.opus"
+    },
+    {
+      "characterId": 1046,
+      "version": "01",
+      "file": "/assets/song/1035/voices/snd_bgm_live_1035_chara_1046_01.opus"
+    },
+    {
+      "characterId": 1052,
+      "version": "01",
+      "file": "/assets/song/1035/voices/snd_bgm_live_1035_chara_1052_01.opus"
+    },
+    {
+      "characterId": 1056,
+      "version": "01",
+      "file": "/assets/song/1035/voices/snd_bgm_live_1035_chara_1056_01.opus"
+    },
+    {
+      "characterId": 1061,
+      "version": "01",
+      "file": "/assets/song/1035/voices/snd_bgm_live_1035_chara_1061_01.opus"
+    }
+  ],
+  "1037": [
+    {
+      "characterId": 1001,
+      "version": "01",
+      "file": "/assets/song/1037/voices/snd_bgm_live_1037_chara_1001_01.opus"
+    },
+    {
+      "characterId": 1002,
+      "version": "01",
+      "file": "/assets/song/1037/voices/snd_bgm_live_1037_chara_1002_01.opus"
+    },
+    {
+      "characterId": 1018,
+      "version": "01",
+      "file": "/assets/song/1037/voices/snd_bgm_live_1037_chara_1018_01.opus"
+    },
+    {
+      "characterId": 1032,
+      "version": "01",
+      "file": "/assets/song/1037/voices/snd_bgm_live_1037_chara_1032_01.opus"
+    },
+    {
+      "characterId": 1056,
+      "version": "01",
+      "file": "/assets/song/1037/voices/snd_bgm_live_1037_chara_1056_01.opus"
+    }
+  ],
+  "1048": [
+    {
+      "characterId": 1004,
+      "version": "01",
+      "file": "/assets/song/1048/voices/snd_bgm_live_1048_chara_1004_01.opus"
+    },
+    {
+      "characterId": 1005,
+      "version": "01",
+      "file": "/assets/song/1048/voices/snd_bgm_live_1048_chara_1005_01.opus"
+    },
+    {
+      "characterId": 1012,
+      "version": "01",
+      "file": "/assets/song/1048/voices/snd_bgm_live_1048_chara_1012_01.opus"
+    },
+    {
+      "characterId": 1013,
+      "version": "01",
+      "file": "/assets/song/1048/voices/snd_bgm_live_1048_chara_1013_01.opus"
+    },
+    {
+      "characterId": 1016,
+      "version": "01",
+      "file": "/assets/song/1048/voices/snd_bgm_live_1048_chara_1016_01.opus"
+    },
+    {
+      "characterId": 1017,
+      "version": "01",
+      "file": "/assets/song/1048/voices/snd_bgm_live_1048_chara_1017_01.opus"
+    },
+    {
+      "characterId": 1021,
+      "version": "01",
+      "file": "/assets/song/1048/voices/snd_bgm_live_1048_chara_1021_01.opus"
+    },
+    {
+      "characterId": 1022,
+      "version": "01",
+      "file": "/assets/song/1048/voices/snd_bgm_live_1048_chara_1022_01.opus"
+    },
+    {
+      "characterId": 1025,
+      "version": "01",
+      "file": "/assets/song/1048/voices/snd_bgm_live_1048_chara_1025_01.opus"
+    },
+    {
+      "characterId": 1028,
+      "version": "01",
+      "file": "/assets/song/1048/voices/snd_bgm_live_1048_chara_1028_01.opus"
+    },
+    {
+      "characterId": 1037,
+      "version": "01",
+      "file": "/assets/song/1048/voices/snd_bgm_live_1048_chara_1037_01.opus"
+    },
+    {
+      "characterId": 1038,
+      "version": "01",
+      "file": "/assets/song/1048/voices/snd_bgm_live_1048_chara_1038_01.opus"
+    }
+  ],
+  "1050": [
+    {
+      "characterId": 1001,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1001_01.opus"
+    },
+    {
+      "characterId": 1002,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1002_01.opus"
+    },
+    {
+      "characterId": 1003,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1003_01.opus"
+    },
+    {
+      "characterId": 1004,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1004_01.opus"
+    },
+    {
+      "characterId": 1005,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1005_01.opus"
+    },
+    {
+      "characterId": 1006,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1006_01.opus"
+    },
+    {
+      "characterId": 1007,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1007_01.opus"
+    },
+    {
+      "characterId": 1008,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1008_01.opus"
+    },
+    {
+      "characterId": 1009,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1009_01.opus"
+    },
+    {
+      "characterId": 1010,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1010_01.opus"
+    },
+    {
+      "characterId": 1011,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1011_01.opus"
+    },
+    {
+      "characterId": 1012,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1012_01.opus"
+    },
+    {
+      "characterId": 1013,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1013_01.opus"
+    },
+    {
+      "characterId": 1014,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1014_01.opus"
+    },
+    {
+      "characterId": 1015,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1015_01.opus"
+    },
+    {
+      "characterId": 1016,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1016_01.opus"
+    },
+    {
+      "characterId": 1017,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1017_01.opus"
+    },
+    {
+      "characterId": 1018,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1018_01.opus"
+    },
+    {
+      "characterId": 1019,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1019_01.opus"
+    },
+    {
+      "characterId": 1020,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1020_01.opus"
+    },
+    {
+      "characterId": 1021,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1021_01.opus"
+    },
+    {
+      "characterId": 1022,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1022_01.opus"
+    },
+    {
+      "characterId": 1023,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1023_01.opus"
+    },
+    {
+      "characterId": 1024,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1024_01.opus"
+    },
+    {
+      "characterId": 1025,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1025_01.opus"
+    },
+    {
+      "characterId": 1026,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1026_01.opus"
+    },
+    {
+      "characterId": 1027,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1027_01.opus"
+    },
+    {
+      "characterId": 1028,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1028_01.opus"
+    },
+    {
+      "characterId": 1030,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1030_01.opus"
+    },
+    {
+      "characterId": 1032,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1032_01.opus"
+    },
+    {
+      "characterId": 1033,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1033_01.opus"
+    },
+    {
+      "characterId": 1035,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1035_01.opus"
+    },
+    {
+      "characterId": 1037,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1037_01.opus"
+    },
+    {
+      "characterId": 1038,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1038_01.opus"
+    },
+    {
+      "characterId": 1039,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1039_01.opus"
+    },
+    {
+      "characterId": 1040,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1040_01.opus"
+    },
+    {
+      "characterId": 1041,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1041_01.opus"
+    },
+    {
+      "characterId": 1045,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1045_01.opus"
+    },
+    {
+      "characterId": 1046,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1046_01.opus"
+    },
+    {
+      "characterId": 1048,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1048_01.opus"
+    },
+    {
+      "characterId": 1050,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1050_01.opus"
+    },
+    {
+      "characterId": 1052,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1052_01.opus"
+    },
+    {
+      "characterId": 1056,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1056_01.opus"
+    },
+    {
+      "characterId": 1057,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1057_01.opus"
+    },
+    {
+      "characterId": 1058,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1058_01.opus"
+    },
+    {
+      "characterId": 1059,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1059_01.opus"
+    },
+    {
+      "characterId": 1060,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1060_01.opus"
+    },
+    {
+      "characterId": 1061,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1061_01.opus"
+    },
+    {
+      "characterId": 1062,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1062_01.opus"
+    },
+    {
+      "characterId": 1063,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1063_01.opus"
+    },
+    {
+      "characterId": 1067,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1067_01.opus"
+    },
+    {
+      "characterId": 1068,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1068_01.opus"
+    },
+    {
+      "characterId": 1069,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1069_01.opus"
+    },
+    {
+      "characterId": 1070,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1070_01.opus"
+    },
+    {
+      "characterId": 1071,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1071_01.opus"
+    },
+    {
+      "characterId": 1072,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1072_01.opus"
+    },
+    {
+      "characterId": 1074,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1074_01.opus"
+    },
+    {
+      "characterId": 1077,
+      "version": "01",
+      "file": "/assets/song/1050/snd_bgm_live_1050_chara_1077_01.opus"
+    }
+  ],
+  "1051": [
+    {
+      "characterId": 1001,
+      "version": "01",
+      "file": "/assets/song/1051/voices/snd_bgm_live_1051_chara_1001_01.opus"
+    },
+    {
+      "characterId": 1002,
+      "version": "01",
+      "file": "/assets/song/1051/voices/snd_bgm_live_1051_chara_1002_01.opus"
+    },
+    {
+      "characterId": 1007,
+      "version": "01",
+      "file": "/assets/song/1051/voices/snd_bgm_live_1051_chara_1007_01.opus"
+    },
+    {
+      "characterId": 1013,
+      "version": "01",
+      "file": "/assets/song/1051/voices/snd_bgm_live_1051_chara_1013_01.opus"
+    },
+    {
+      "characterId": 1016,
+      "version": "01",
+      "file": "/assets/song/1051/voices/snd_bgm_live_1051_chara_1016_01.opus"
+    },
+    {
+      "characterId": 1030,
+      "version": "01",
+      "file": "/assets/song/1051/voices/snd_bgm_live_1051_chara_1030_01.opus"
+    },
+    {
+      "characterId": 1035,
+      "version": "01",
+      "file": "/assets/song/1051/voices/snd_bgm_live_1051_chara_1035_01.opus"
+    }
+  ]
+}
