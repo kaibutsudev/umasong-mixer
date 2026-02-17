@@ -15,6 +15,7 @@ import { SongSelector } from "./SongSelector";
 import { SongMixerHeader } from "./SongMixerHeader";
 import { BackgroundEffect } from "./BackgroundEffect";
 import ParticleBackground from "@/components/ui/ParticleBackground";
+import { HistoryItem } from "@/hooks/useMixHistory";
 
 // Hooks
 import { DynamicAlert } from "@/components/ui/DynamicAlert";
@@ -25,6 +26,7 @@ import { useSongMixerState } from "@/hooks/useSongMixerState";
 import { songLyrics } from "@/lib/data/lyrics";
 import { ShareCard } from "./ShareModal";
 import { useDominantColor } from "@/hooks/useDominantColor";
+import { useMixHistory } from "@/hooks/useMixHistory";
 
 interface SongMixerProps {
   songs: Song[];
@@ -46,6 +48,9 @@ export default function SongMixer({
 
   // Share Modal State
   const [shareOpen, setShareOpen] = useState(false);
+
+  // History Hooks
+  const { addToHistory } = useMixHistory();
 
   // Zen Mode State
   const [isZenMode, setIsZenMode] = useState(false);
@@ -191,6 +196,9 @@ export default function SongMixer({
         return;
       }
       playMix();
+      if (selectedSong) {
+        addToHistory(selectedSong, selectedSingers, characterData);
+      }
     }
   };
 
@@ -226,10 +234,45 @@ export default function SongMixer({
     };
   });
 
+  const { history } = useMixHistory();
+
   if (!selectedSong) {
     return (
       <div className="bg-[#0f0f1a] min-h-screen">
-        <SongSelector songs={songs} onSelect={baseHandleSongSelect} />
+        <SongSelector
+          songs={songs}
+          onSelect={baseHandleSongSelect}
+          history={history}
+          onSelectHistoryItem={(item: HistoryItem) => {
+            // We need to set song AND singers.
+            // baseHandleSongSelect takes a Song.
+            // toggleSinger takes a Singer.
+
+            const song = songs.find((s) => s.id === item.songId);
+            if (song) {
+              // This will set the URL for Song
+              baseHandleSongSelect(song);
+
+              // We also need to set the singers in the URL.
+              // baseHandleSongSelect redirects.
+              // We should probably just construct the full URL here and push it?
+              // Or let SongSelector handle the navigation?
+
+              // Ideally, pass a handler that does both.
+              // But baseHandleSongSelect is async and triggers navigation.
+
+              // Let's defer this to SongSelector or handle it here by manually constructing the URL push?
+              // Doing it here is cleaner if we have access to router. But router is inside useSongMixerState.
+
+              // Hack: We can call handleSongSelect, wait, then... no.
+              // BETTER: SongSelector just navigates to `/?songId=X&singers=Y,Z`.
+              // So we don't need onSelectHistoryItem to call function props, just navigation.
+
+              // Actually, SongSelector is a client component. It can use useRouter.
+              // So we just need to pass the history list.
+            }
+          }}
+        />
       </div>
     );
   }
