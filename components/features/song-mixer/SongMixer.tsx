@@ -13,6 +13,9 @@ import { LyricsDisplay } from "./LyricsDisplay";
 import { SongSelector } from "./SongSelector";
 import { SongMixerHeader } from "./SongMixerHeader";
 import { BackgroundEffect } from "./BackgroundEffect";
+import ParticleBackground from "@/components/ui/ParticleBackground";
+
+// Hooks
 import { DynamicAlert } from "@/components/ui/DynamicAlert";
 
 // Hooks
@@ -218,6 +221,7 @@ export default function SongMixer({
         style={{ "--accent-color": dominantColor } as React.CSSProperties}
       >
         <BackgroundEffect coverUrl={selectedSong.cover} />
+        <ParticleBackground isPlaying={isPlaying} accentColor={dominantColor} />
 
         <SongMixerHeader
           title={selectedSong.name}
