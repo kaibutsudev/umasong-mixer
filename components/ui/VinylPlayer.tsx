@@ -23,6 +23,7 @@ interface VinylPlayerProps {
   onToggleLyrics?: (val: boolean) => void;
   hasLyrics?: boolean;
   analyser?: AnalyserNode | null;
+  accentColor?: string;
 }
 
 const formatTime = (seconds: number) => {
@@ -49,6 +50,7 @@ export default function VinylPlayer({
   onToggleLyrics,
   hasLyrics,
   analyser,
+  accentColor,
 }: VinylPlayerProps) {
   const [isMuted, setIsMuted] = useState(false);
   const [isSeeking, setIsSeeking] = useState(false);
@@ -94,7 +96,11 @@ export default function VinylPlayer({
       {/* Vinyl Container */}
       <div className="relative w-64 h-64 md:w-80 md:h-80 group">
         {/* Audio Visualizer */}
-        <AudioVisualizer analyser={analyser || null} isPlaying={isPlaying} />
+        <AudioVisualizer
+          analyser={analyser || null}
+          isPlaying={isPlaying}
+          color={accentColor}
+        />
 
         {/* Glow Effect */}
         <div

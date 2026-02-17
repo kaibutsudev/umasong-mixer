@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 // Types and Data
 import { Song } from "@/lib/data/musicdata";
@@ -13,6 +13,7 @@ import { LyricsDisplay } from "./LyricsDisplay";
 import { SongSelector } from "./SongSelector";
 import { SongMixerHeader } from "./SongMixerHeader";
 import { BackgroundEffect } from "./BackgroundEffect";
+import { DynamicAlert } from "@/components/ui/DynamicAlert";
 
 // Hooks
 import { useSongMixerAudio } from "@/hooks/useSongMixerAudio";
@@ -33,6 +34,11 @@ export default function SongMixer({
   initialSongId,
   initialCharacterId,
 }: SongMixerProps) {
+  // Alert State
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [alertTitle, setAlertTitle] = useState("");
+  const [alertMessage, setAlertMessage] = useState("");
+
   // Audio Playback Hook (initialized first to pass stopMix)
   // We need to pass stopMix to the state hook, but `useSongMixerAudio` needs state.
   // This is a circular dependency if we're not careful.
@@ -248,6 +254,7 @@ export default function SongMixer({
                     onToggleLyrics={setShowLyrics}
                     hasLyrics={!!hasLyrics}
                     analyser={analyserNodeRef.current}
+                    accentColor={dominantColor}
                   />
                 </div>
 
