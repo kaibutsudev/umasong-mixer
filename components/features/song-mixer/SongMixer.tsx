@@ -1,6 +1,5 @@
-"use client";
-
 import { useEffect, useState } from "react";
+import { Minimize2 } from "lucide-react";
 
 // Types and Data
 import { Song } from "@/lib/data/musicdata";
@@ -22,6 +21,7 @@ import { DynamicAlert } from "@/components/ui/DynamicAlert";
 import { useSongMixerAudio } from "@/hooks/useSongMixerAudio";
 import { useSongMixerState } from "@/hooks/useSongMixerState";
 import { songLyrics } from "@/lib/data/lyrics";
+import { ShareCard } from "./ShareModal";
 import { useDominantColor } from "@/hooks/useDominantColor";
 
 interface SongMixerProps {
@@ -41,6 +41,12 @@ export default function SongMixer({
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertTitle, setAlertTitle] = useState("");
   const [alertMessage, setAlertMessage] = useState("");
+
+  // Share Modal State
+  const [shareOpen, setShareOpen] = useState(false);
+
+  // Zen Mode State
+  const [isZenMode, setIsZenMode] = useState(false);
 
   // Audio Playback Hook (initialized first to pass stopMix)
   // We need to pass stopMix to the state hook, but `useSongMixerAudio` needs state.
@@ -198,6 +204,26 @@ export default function SongMixer({
     handleDownload();
   };
 
+  const handleShare = () => {
+    if (!selectedSong) return;
+    setShareOpen(true);
+  };
+
+  const selectedSingerData = selectedSingers.map((s) => {
+    const charGroup = characterData[s.characterId];
+    // Default to first version or fallback
+    const charVersion = charGroup?.versions[0];
+
+    return {
+      name: charVersion?.name_en ?? s.characterId.toString(),
+      image: charVersion?.character_img ?? "/placeholder.png",
+      // Generate a stable color from ID if not present? Or use white.
+      // The Character type doesn't seem to have 'color' on root or stats based on my read of characters.ts
+      // Let's use a default or generate one.
+      color: "#ffffff",
+    };
+  });
+
   if (!selectedSong) {
     return (
       <div className="bg-[#0f0f1a] min-h-screen">
@@ -216,6 +242,15 @@ export default function SongMixer({
         actionLabel="Entendido"
       />
 
+      <ShareCard
+        open={shareOpen}
+        onOpenChange={setShareOpen}
+        songName={selectedSong.name}
+        coverUrl={selectedSong.cover}
+        singers={selectedSingerData}
+        accentColor={dominantColor}
+      />
+
       <div
         className="fixed inset-0 h-[100dvh] w-screen overflow-hidden bg-[#0f0f1a] text-white flex flex-col transition-colors duration-1000"
         style={{ "--accent-color": dominantColor } as React.CSSProperties}
@@ -223,13 +258,32 @@ export default function SongMixer({
         <BackgroundEffect coverUrl={selectedSong.cover} />
         <ParticleBackground isPlaying={isPlaying} accentColor={dominantColor} />
 
-        <SongMixerHeader
-          title={selectedSong.name}
-          onBack={() => {
-            stopMix();
-            baseHandleSongSelect(null);
-          }}
-        />
+        <div
+          className={`transition-all duration-500 ease-in-out ${isZenMode ? "-mt-[88px] opacity-0 pointer-events-none" : "opacity-100"}`}
+        >
+          <SongMixerHeader
+            title={selectedSong.name}
+            onBack={() => {
+              stopMix();
+              baseHandleSongSelect(null);
+            }}
+            onShare={handleShare}
+            onToggleZen={() => setIsZenMode(true)}
+          />
+        </div>
+
+        {/* Zen Mode Exit Button */}
+        <button
+          onClick={() => setIsZenMode(false)}
+          className={`absolute top-6 right-6 z-50 p-3 rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-white hover:bg-white/10 transition-all duration-500 w-12 h-12 flex items-center justify-center ${
+            isZenMode
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 -translate-y-10 pointer-events-none"
+          }`}
+          title="Exit Zen Mode"
+        >
+          <Minimize2 className="w-6 h-6" />
+        </button>
 
         <main className="flex-1 overflow-y-auto relative z-10 p-4 custom-scrollbar">
           <div className="max-w-7xl mx-auto flex flex-col gap-12 py-8">
@@ -239,7 +293,9 @@ export default function SongMixer({
                 className={`flex flex-col lg:flex-row items-center lg:items-stretch justify-center gap-8 transition-all duration-500 ease-in-out`}
               >
                 {/* Player Column */}
-                <div className="w-full max-w-md flex flex-col items-center transition-all duration-500">
+                <div
+                  className={`w-full max-w-md flex flex-col items-center transition-all duration-700 ${isZenMode ? "scale-125 lg:scale-130" : ""}`}
+                >
                   <VinylPlayer
                     isPlaying={isPlaying}
                     onPlayPause={handlePlayPause}
@@ -264,7 +320,9 @@ export default function SongMixer({
 
                 {/* Lyrics Column */}
                 {hasLyrics && showLyrics && (
-                  <div className="w-full max-w-md animate-fade-in-up h-100 md:h-212">
+                  <div
+                    className={`w-full max-w-md animate-fade-in-up md:h-212 transition-all duration-700 ${isZenMode ? "scale-110 lg:scale-120 h-[60dvh]" : "h-100"}`}
+                  >
                     <LyricsDisplay
                       lyrics={songLyrics[selectedSong.id]}
                       currentTime={currentMixTime}
@@ -275,7 +333,9 @@ export default function SongMixer({
             </div>
 
             {/* Bottom Section: Singers */}
-            <div className="w-full">
+            <div
+              className={`w-full transition-all duration-500 ${isZenMode ? "translate-y-20 opacity-0 pointer-events-none absolute bottom-0" : "opacity-100"}`}
+            >
               <SingerSelector
                 availableSingers={availableSingers}
                 selectedSingers={selectedSingers}

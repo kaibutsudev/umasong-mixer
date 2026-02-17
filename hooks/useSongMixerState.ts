@@ -75,25 +75,47 @@ export function useSongMixerState({
     }
   };
 
+
   const toggleSinger = (singer: Singer) => {
     onStopMix();
+
+    let newSingers: Singer[] = [];
 
     if (selectedSingers.find((s) => s.characterId === singer.characterId)) {
       if (initialCharacterId && singer.characterId === initialCharacterId) {
         return;
       }
-      setSelectedSingers(
-        selectedSingers.filter((s) => s.characterId !== singer.characterId),
+      newSingers = selectedSingers.filter(
+        (s) => s.characterId !== singer.characterId,
       );
     } else {
       if (selectedSong && selectedSingers.length < selectedSong.singers_limit) {
-        setSelectedSingers([...selectedSingers, singer]);
+        newSingers = [...selectedSingers, singer];
       } else {
         alert(
           `You can only select up to ${selectedSong?.singers_limit ?? 3} singers.`,
         );
+        return;
       }
     }
+
+    // Update local state is handled by URL effect now?
+    // Actually, setting URL should trigger re-render, but it's cleaner to optimistic update or just push URL.
+    // If we rely purely on URL, we might have lag.
+    // Let's mimic handleSongSelect: push to URL, allow effect to sync?
+    // Or just update local state AND push to URL.
+
+    setSelectedSingers(newSingers);
+
+    // Update URL
+    const params = new URLSearchParams(searchParams.toString());
+    if (newSingers.length > 0) {
+      const singerIds = newSingers.map((s) => s.characterId).join(",");
+      params.set("singers", singerIds);
+    } else {
+      params.delete("singers");
+    }
+    router.replace(`?${params.toString()}`, { scroll: false });
   };
 
   // ============================================================================
@@ -124,18 +146,42 @@ export function useSongMixerState({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams, songs, initialSongId]);
 
-  // Auto-select initial character
+  // Sync singers from URL or Initial Props
   useEffect(() => {
-    if (initialCharacterId && availableSingers.length > 0) {
-      const singer = availableSingers.find(
-        (s) => s.characterId === initialCharacterId,
+    if (availableSingers.length === 0) return;
+
+    const singersParam = searchParams.get("singers");
+
+    // Priority: URL Params > Initial Props
+    let targetSingerIds: number[] = [];
+
+    if (singersParam) {
+      targetSingerIds = singersParam.split(",").map(Number);
+    } else if (initialCharacterId) {
+      targetSingerIds = [initialCharacterId];
+    }
+
+    if (targetSingerIds.length > 0) {
+      const singersToSelect = availableSingers.filter((s) =>
+        targetSingerIds.includes(s.characterId),
       );
-      if (singer && selectedSingers.length === 0) {
-        setSelectedSingers([singer]);
+
+      // Avoid infinite loop by checking if different
+      const currentIds = selectedSingers
+        .map((s) => s.characterId)
+        .sort()
+        .join(",");
+      const newIds = singersToSelect
+        .map((s) => s.characterId)
+        .sort()
+        .join(",");
+
+      if (currentIds !== newIds) {
+        setSelectedSingers(singersToSelect);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [availableSingers, initialCharacterId]);
+  }, [availableSingers, searchParams, initialCharacterId]);
 
   return {
     selectedSong,
