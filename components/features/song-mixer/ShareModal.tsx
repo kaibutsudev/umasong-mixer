@@ -34,6 +34,7 @@ export function ShareCard({
 }: ShareCardProps) {
   const cardRef = React.useRef<HTMLDivElement>(null);
   const [isGenerating, setIsGenerating] = useState(false);
+  const { toast } = useToast();
 
   const handleDownload = async () => {
     if (!cardRef.current) return;
@@ -50,7 +51,7 @@ export function ShareCard({
       });
 
       const blob = await new Promise<Blob | null>((resolve) =>
-        canvas.toBlob(resolve, "image/png")
+        canvas.toBlob(resolve, "image/png"),
       );
 
       if (blob) {
@@ -60,10 +61,19 @@ export function ShareCard({
         a.download = `umasong-mix-${songName.replace(/\s+/g, "-")}.png`;
         a.click();
         URL.revokeObjectURL(url);
+        toast({
+          title: "Image Saved",
+          description: "Your mix card has been downloaded!",
+          variant: "success",
+        });
       }
     } catch (err) {
       console.error("Failed to generate image", err);
-      alert("Failed to generate image.");
+      toast({
+        title: "Download Failed",
+        description: "Could not generate image.",
+        variant: "error",
+      });
     } finally {
       setIsGenerating(false);
     }
@@ -112,13 +122,15 @@ export function ShareCard({
                       src={coverUrl}
                       alt={songName}
                       className="w-40 h-40 rounded-full border-4 border-white/20 shadow-[0_0_30px_rgba(255,255,255,0.2)]"
-                      crossOrigin="anonymous" 
+                      crossOrigin="anonymous"
                     />
                     <div className="text-center">
                       <h3 className="text-2xl font-black uppercase tracking-wider drop-shadow-md">
                         {songName}
                       </h3>
-                      <p className="text-sm text-white/60 font-medium">Umasong Mixer</p>
+                      <p className="text-sm text-white/60 font-medium">
+                        Umasong Mixer
+                      </p>
                     </div>
                   </div>
 
@@ -142,17 +154,20 @@ export function ShareCard({
                     </p>
                     <div className="flex justify-center gap-3">
                       {singers.map((s, idx) => (
-                        <div key={idx} className="flex flex-col items-center gap-1">
-                          <div 
+                        <div
+                          key={idx}
+                          className="flex flex-col items-center gap-1"
+                        >
+                          <div
                             className="w-12 h-12 rounded-full border-2 overflow-hidden bg-black"
                             style={{ borderColor: s.color }}
                           >
-                             <img 
-                                src={s.image} 
-                                alt={s.name} 
-                                className="w-full h-full object-cover" 
-                                crossOrigin="anonymous" 
-                             />
+                            <img
+                              src={s.image}
+                              alt={s.name}
+                              className="w-full h-full object-cover"
+                              crossOrigin="anonymous"
+                            />
                           </div>
                           <span className="text-[10px] font-bold text-white/80 max-w-[60px] truncate">
                             {s.name}
@@ -161,7 +176,7 @@ export function ShareCard({
                       ))}
                     </div>
                   </div>
-                  
+
                   {/* Watermark */}
                   <div className="absolute top-4 right-4 text-[10px] font-mono text-white/30 rotate-90 origin-top-right">
                     NON-COMMERCIAL / FAN MADE
@@ -170,23 +185,26 @@ export function ShareCard({
 
                 {/* Actions */}
                 <div className="flex gap-4 w-full justify-center">
-                   <button 
-                     onClick={handleDownload}
-                     disabled={isGenerating}
-                     className="bg-white text-black px-6 py-3 rounded-full font-bold shadow-lg hover:bg-gray-200 transition-colors disabled:opacity-50 flex items-center gap-2"
-                   >
-                     {isGenerating ? "Generating..." : "Download Card"} 📥
-                   </button>
-                   <button 
-                     onClick={() => {
-                        // Copy URL
-                        navigator.clipboard.writeText(window.location.href);
-                        alert("Link copied!");
-                     }}
-                     className="bg-white/10 text-white px-6 py-3 rounded-full font-bold backdrop-blur-sm hover:bg-white/20 transition-colors border border-white/10"
-                   >
-                     Copy Link 🔗
-                   </button>
+                  <button
+                    onClick={handleDownload}
+                    disabled={isGenerating}
+                    className="bg-white text-black px-6 py-3 rounded-full font-bold shadow-lg hover:bg-gray-200 transition-colors disabled:opacity-50 flex items-center gap-2"
+                  >
+                    {isGenerating ? "Generating..." : "Download Card"} 📥
+                  </button>
+                  <button
+                    onClick={() => {
+                      navigator.clipboard.writeText(window.location.href);
+                      toast({
+                        title: "Link Copied!",
+                        description: "Share this link with your friends.",
+                        variant: "success",
+                      });
+                    }}
+                    className="bg-white/10 text-white px-6 py-3 rounded-full font-bold backdrop-blur-sm hover:bg-white/20 transition-colors border border-white/10"
+                  >
+                    Copy Link 🔗
+                  </button>
                 </div>
 
                 <button
@@ -202,4 +220,5 @@ export function ShareCard({
       </AnimatePresence>
     </Dialog>
   );
+
 }
