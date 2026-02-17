@@ -24,7 +24,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
     description?: string;
     variant?: "default" | "success" | "error";
   } | null>(null);
-  const timerRef = React.useRef<NodeJS.Timeout>();
+  const timerRef = React.useRef<NodeJS.Timeout | null>(null);
 
   const toast = React.useCallback(
     ({ title, description, variant = "default" }: { title: string; description?: string; variant?: "default" | "success" | "error" }) => {

@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { Song } from "@/lib/data/musicdata";
 import { Singer } from "@/types";
-import { audioBufferToWav } from "@/utils/audioProcessing";
+import { audioBufferToMp3 } from "@/utils/mp3Encoder";
 
 interface UseSongMixerAudioProps {
   selectedSong: Song | null;
@@ -371,12 +371,11 @@ export function useSongMixerAudio({
       });
 
       const renderedBuffer = await offlineCtx.startRendering();
-      const wavBuffer = audioBufferToWav(renderedBuffer);
-      const blob = new Blob([wavBuffer], { type: "audio/wav" });
-      const url = URL.createObjectURL(blob);
+      const mp3Blob = audioBufferToMp3(renderedBuffer);
+      const url = URL.createObjectURL(mp3Blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `${selectedSong.name} - Mix.wav`;
+      a.download = `${selectedSong.name} - Mix.mp3`;
       a.click();
       URL.revokeObjectURL(url);
     } catch (e) {
