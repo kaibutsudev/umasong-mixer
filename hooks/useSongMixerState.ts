@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { Song } from "@/lib/data/musicdata";
 import { Singer } from "@/types";
 
@@ -17,6 +17,7 @@ export function useSongMixerState({
   onStopMix,
 }: UseSongMixerStateProps) {
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   // ============================================================================
   // STATE
@@ -36,14 +37,27 @@ export function useSongMixerState({
   // ============================================================================
   const handleSongSelect = async (song: Song | null) => {
     onStopMix();
-    
+
     if (!song) {
-        setSelectedSong(null);
-        setSelectedSingers([]);
-        setAvailableSingers([]);
-        return;
+      setSelectedSong(null);
+      setSelectedSingers([]);
+      setAvailableSingers([]);
+      // Remove songId from URL
+      const params = new URLSearchParams(searchParams.toString());
+      params.delete("songId");
+      router.push(`?${params.toString()}`);
+      return;
     }
 
+    // Update URL to reflect selected song
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("songId", song.id.toString());
+    router.push(`?${params.toString()}`);
+
+    // The actual state update will happen in the effect below
+  };
+
+  const loadSongData = async (song: Song) => {
     setSelectedSong(song);
     setSelectedSingers([]);
     setAvailableSingers([]);
@@ -69,14 +83,14 @@ export function useSongMixerState({
         return;
       }
       setSelectedSingers(
-        selectedSingers.filter((s) => s.characterId !== singer.characterId)
+        selectedSingers.filter((s) => s.characterId !== singer.characterId),
       );
     } else {
       if (selectedSong && selectedSingers.length < selectedSong.singers_limit) {
         setSelectedSingers([...selectedSingers, singer]);
       } else {
         alert(
-          `You can only select up to ${selectedSong?.singers_limit ?? 3} singers.`
+          `You can only select up to ${selectedSong?.singers_limit ?? 3} singers.`,
         );
       }
     }
@@ -91,10 +105,20 @@ export function useSongMixerState({
     const targetSongId =
       initialSongId || (songIdParam ? parseInt(songIdParam) : null);
 
-    if (targetSongId && !selectedSong) {
-      const song = songs.find((s) => s.id === targetSongId);
-      if (song) {
-        handleSongSelect(song);
+    if (targetSongId) {
+      // Only load if it's different from current or current is null
+      if (!selectedSong || selectedSong.id !== targetSongId) {
+        const song = songs.find((s) => s.id === targetSongId);
+        if (song) {
+          loadSongData(song);
+        }
+      }
+    } else {
+      // If no song ID and we have one selected, clear it (unless it was initial)
+      if (selectedSong && !initialSongId) {
+        setSelectedSong(null);
+        setSelectedSingers([]);
+        setAvailableSingers([]);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -104,7 +128,7 @@ export function useSongMixerState({
   useEffect(() => {
     if (initialCharacterId && availableSingers.length > 0) {
       const singer = availableSingers.find(
-        (s) => s.characterId === initialCharacterId
+        (s) => s.characterId === initialCharacterId,
       );
       if (singer && selectedSingers.length === 0) {
         setSelectedSingers([singer]);

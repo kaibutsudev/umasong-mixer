@@ -51,21 +51,21 @@ export function LyricsDisplay({ lyrics, currentTime }: LyricsDisplayProps) {
         <h3 className="text-xl font-bold text-white">Lyrics</h3>
         <div className="flex bg-white/10 rounded-full p-1">
           <button
-            onClick={() => setMode('kanji')}
+            onClick={() => setMode("kanji")}
             className={`px-3 py-1 text-xs rounded-full transition-all ${
-              mode === 'kanji' 
-                ? 'bg-pink-500 text-white font-bold' 
-                : 'text-gray-400 hover:text-white'
+              mode === "kanji"
+                ? "bg-[var(--accent-color)] text-white font-bold"
+                : "text-gray-400 hover:text-white"
             }`}
           >
             Kanji
           </button>
           <button
-            onClick={() => setMode('romaji')}
+            onClick={() => setMode("romaji")}
             className={`px-3 py-1 text-xs rounded-full transition-all ${
-              mode === 'romaji' 
-                ? 'bg-pink-500 text-white font-bold' 
-                : 'text-gray-400 hover:text-white'
+              mode === "romaji"
+                ? "bg-[var(--accent-color)] text-white font-bold"
+                : "text-gray-400 hover:text-white"
             }`}
           >
             Romaji
@@ -73,10 +73,10 @@ export function LyricsDisplay({ lyrics, currentTime }: LyricsDisplayProps) {
         </div>
       </div>
 
-      <div 
+      <div
         ref={scrollContainerRef}
         className="flex-1 overflow-y-auto overflow-x-hidden space-y-6 px-4 overscroll-y-contain no-scrollbar text-center"
-        style={{ scrollBehavior: 'smooth' }}
+        style={{ scrollBehavior: "smooth" }}
       >
         {lyrics.map((line, index) => {
           const isActive = index === activeLineIndex;
@@ -90,16 +90,20 @@ export function LyricsDisplay({ lyrics, currentTime }: LyricsDisplayProps) {
               }`}
             >
               {/* Main Line (Kanji or Romaji based on selection) */}
-              <p className={`text-xl font-bold mb-2 ${
-                isActive 
-                  ? "text-pink-400 drop-shadow-[0_0_10px_rgba(236,72,153,0.5)]" 
-                  : "text-white"
-              }`}>
-                {mode === 'kanji' ? line.kanji : line.romaji}
+              <p
+                className={`text-xl font-bold mb-2 ${
+                  isActive
+                    ? "text-[var(--accent-color)] drop-shadow-[0_0_10px_var(--accent-color)]"
+                    : "text-white"
+                }`}
+              >
+                {mode === "kanji" ? line.kanji : line.romaji}
               </p>
-              
+
               {/* English Translation */}
-              <p className={`text-sm italic ${isActive ? "text-white" : "text-gray-400"}`}>
+              <p
+                className={`text-sm italic ${isActive ? "text-white" : "text-gray-400"}`}
+              >
                 {line.english}
               </p>
             </div>

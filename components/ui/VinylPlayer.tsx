@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { Play, Pause, Volume2, VolumeX, Download } from "lucide-react";
+import AudioVisualizer from "./AudioVisualizer";
 
 interface VinylPlayerProps {
   isPlaying: boolean;
@@ -21,6 +22,7 @@ interface VinylPlayerProps {
   showLyrics?: boolean;
   onToggleLyrics?: (val: boolean) => void;
   hasLyrics?: boolean;
+  analyser?: AnalyserNode | null;
 }
 
 const formatTime = (seconds: number) => {
@@ -46,6 +48,7 @@ export default function VinylPlayer({
   showLyrics,
   onToggleLyrics,
   hasLyrics,
+  analyser,
 }: VinylPlayerProps) {
   const [isMuted, setIsMuted] = useState(false);
   const [isSeeking, setIsSeeking] = useState(false);
@@ -90,9 +93,12 @@ export default function VinylPlayer({
     <div className="flex flex-col items-center justify-center gap-8 p-8 bg-black/40 backdrop-blur-xl rounded-3xl border border-white/10 shadow-2xl max-w-md w-full">
       {/* Vinyl Container */}
       <div className="relative w-64 h-64 md:w-80 md:h-80 group">
+        {/* Audio Visualizer */}
+        <AudioVisualizer analyser={analyser || null} isPlaying={isPlaying} />
+
         {/* Glow Effect */}
         <div
-          className={`absolute inset-0 rounded-full bg-linear-to-tr from-pink-500/30 to-purple-500/30 blur-2xl transition-opacity duration-1000 ${
+          className={`absolute inset-0 rounded-full bg-linear-to-tr from-[var(--accent-color)] to-[color-mix(in_srgb,var(--accent-color),#000_20%)] blur-2xl transition-opacity duration-1000 opacity-30 ${
             isPlaying ? "opacity-100 animate-pulse" : "opacity-30"
           }`}
         />
@@ -142,7 +148,7 @@ export default function VinylPlayer({
           <h3 className="text-2xl font-bold text-white mb-1 drop-shadow-md">
             {songName}
           </h3>
-          <p className="text-pink-400 text-sm font-medium tracking-wider uppercase">
+          <p className="text-[var(--accent-color)] text-sm font-medium tracking-wider uppercase">
             Now Playing
           </p>
         </div>
@@ -191,11 +197,11 @@ export default function VinylPlayer({
             onMouseUp={handleSeekEnd}
             onTouchEnd={handleSeekEnd}
             style={{
-              background: `linear-gradient(to right, #db2777 ${
+              background: `linear-gradient(to right, var(--accent-color) ${
                 (seekValue / (duration || 1)) * 100
               }%, #374151 ${(seekValue / (duration || 1)) * 100}%)`,
             }}
-            className="w-full h-1.5 rounded-lg appearance-none cursor-pointer accent-pink-600 hover:accent-pink-500 transition-all"
+            className="w-full h-1.5 rounded-lg appearance-none cursor-pointer accent-[var(--accent-color)] hover:accent-[var(--accent-color)]/80 transition-all"
             disabled={!duration}
           />
           <div className="flex justify-between text-xs font-medium text-gray-400">
@@ -211,7 +217,7 @@ export default function VinylPlayer({
               <div
                 className={`p-2 rounded-full ${
                   showLyrics
-                    ? "bg-pink-500/20 text-pink-400"
+                    ? "bg-[color-mix(in_srgb,var(--accent-color),transparent_80%)] text-[var(--accent-color)]"
                     : "bg-white/5 text-gray-400"
                 }`}
               >
@@ -237,7 +243,7 @@ export default function VinylPlayer({
             <button
               onClick={() => onToggleLyrics(!showLyrics)}
               className={`w-12 h-6 flex items-center rounded-full p-1 transition-colors duration-200 focus:outline-none ${
-                showLyrics ? "bg-pink-600" : "bg-gray-700"
+                showLyrics ? "bg-[var(--accent-color)]" : "bg-gray-700"
               }`}
             >
               <div
@@ -256,7 +262,7 @@ export default function VinylPlayer({
               <div
                 className={`p-2 rounded-full ${
                   useAudience
-                    ? "bg-pink-500/20 text-pink-400"
+                    ? "bg-[color-mix(in_srgb,var(--accent-color),transparent_80%)] text-[var(--accent-color)]"
                     : "bg-white/5 text-gray-400"
                 }`}
               >
@@ -282,7 +288,7 @@ export default function VinylPlayer({
             <button
               onClick={() => onToggleAudience(!useAudience)}
               className={`w-12 h-6 flex items-center rounded-full p-1 transition-colors duration-200 focus:outline-none ${
-                useAudience ? "bg-pink-600" : "bg-gray-700"
+                useAudience ? "bg-[var(--accent-color)]" : "bg-gray-700"
               }`}
             >
               <div
@@ -317,11 +323,11 @@ export default function VinylPlayer({
               onVolumeChange(parseFloat(e.target.value));
             }}
             style={{
-              background: `linear-gradient(to right, #db2777 ${
+              background: `linear-gradient(to right, var(--accent-color) ${
                 (isMuted ? 0 : volume) * 100
               }%, #374151 ${(isMuted ? 0 : volume) * 100}%)`,
             }}
-            className="flex-1 h-1.5 rounded-lg appearance-none cursor-pointer accent-pink-600 hover:accent-pink-500 transition-all"
+            className="flex-1 h-1.5 rounded-lg appearance-none cursor-pointer accent-[var(--accent-color)] hover:accent-[var(--accent-color)]/80 transition-all"
           />
         </div>
       </div>

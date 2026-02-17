@@ -26,6 +26,7 @@ export function useSongMixerAudio({
   const audioContextRef = useRef<AudioContext | null>(null);
   const sourceNodesRef = useRef<AudioBufferSourceNode[]>([]);
   const gainNodeRef = useRef<GainNode | null>(null);
+  const analyserNodeRef = useRef<AnalyserNode | null>(null);
 
   // Playback Refs
   const audioBuffersRef = useRef<{ [key: string]: AudioBuffer }>({});
@@ -39,8 +40,17 @@ export function useSongMixerAudio({
       window.AudioContext || (window as any).webkitAudioContext;
     audioContextRef.current = new AudioContextClass();
     const gainNode = audioContextRef.current.createGain();
-    gainNode.connect(audioContextRef.current.destination);
+
+    // Create Analyser
+    const analyser = audioContextRef.current.createAnalyser();
+    analyser.fftSize = 256; // Good balance for visualizers
+
+    // Connect: Gain -> Analyser -> Destination
+    gainNode.connect(analyser);
+    analyser.connect(audioContextRef.current.destination);
+
     gainNodeRef.current = gainNode;
+    analyserNodeRef.current = analyser;
 
     return () => {
       audioContextRef.current?.close();
@@ -143,10 +153,7 @@ export function useSongMixerAudio({
   // Helper: Load Buffers
   const loadAudioBuffers = async (): Promise<boolean> => {
     // console.log("Loading audio buffers for:", selectedSong?.name);
-    if (
-      !selectedSong ||
-      !audioContextRef.current
-    ) {
+    if (!selectedSong || !audioContextRef.current) {
       return false;
     }
 
@@ -154,7 +161,7 @@ export function useSongMixerAudio({
 
     // Load both clean/crowd + singers to ensure seamless toggle
     const bgmUrls = [selectedSong.clean_song, selectedSong.crowd_audio].filter(
-      (url) => !!url
+      (url) => !!url,
     );
     // Only try to load non-empty file paths
     const voiceUrls = selectedSingers
@@ -172,16 +179,15 @@ export function useSongMixerAudio({
               if (!response.ok)
                 throw new Error(`HTTP error! status: ${response.status}`);
               const arrayBuffer = await response.arrayBuffer();
-              audioBuffersRef.current[url] = await audioCtx.decodeAudioData(
-                arrayBuffer
-              );
+              audioBuffersRef.current[url] =
+                await audioCtx.decodeAudioData(arrayBuffer);
               // console.log("Loaded buffer:", url);
             } catch (innerErr) {
               console.warn(`Failed to load audio: ${url}`, innerErr);
               // Continue loading others
             }
           }
-        })
+        }),
       );
       // Update max duration based on what we have
       let maxDur = 0;
@@ -337,8 +343,9 @@ export function useSongMixerAudio({
     if (!selectedSong || selectedSingers.length === 0) return;
     setIsLoading(true);
     try {
-      const audioCtx = new (window.AudioContext ||
-        (window as any).webkitAudioContext)();
+      const audioCtx = new (
+        window.AudioContext || (window as any).webkitAudioContext
+      )();
       const bgmUrl = useAudience
         ? selectedSong.crowd_audio
         : selectedSong.clean_song;
@@ -350,7 +357,7 @@ export function useSongMixerAudio({
           const response = await fetch(url);
           const arrayBuffer = await response.arrayBuffer();
           return await audioCtx.decodeAudioData(arrayBuffer);
-        })
+        }),
       );
 
       const maxDuration = Math.max(...buffers.map((b) => b.duration));
@@ -390,5 +397,6 @@ export function useSongMixerAudio({
     pauseMix,
     seekMix,
     handleDownload,
+    analyserNodeRef,
   };
 }

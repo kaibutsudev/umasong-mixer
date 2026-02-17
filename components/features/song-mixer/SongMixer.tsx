@@ -18,6 +18,7 @@ import { BackgroundEffect } from "./BackgroundEffect";
 import { useSongMixerAudio } from "@/hooks/useSongMixerAudio";
 import { useSongMixerState } from "@/hooks/useSongMixerState";
 import { songLyrics } from "@/lib/data/lyrics";
+import { useDominantColor } from "@/hooks/useDominantColor";
 
 interface SongMixerProps {
   songs: Song[];
@@ -141,6 +142,7 @@ export default function SongMixer({
     pauseMix,
     seekMix,
     handleDownload,
+    analyserNodeRef,
   } = useSongMixerAudio({
     selectedSong,
     selectedSingers,
@@ -156,6 +158,37 @@ export default function SongMixer({
   // Determine if we should show lyrics toggle
   const hasLyrics = selectedSong && songLyrics[selectedSong.id];
 
+  // Dynamic Theme Color
+  const dominantColor = useDominantColor(selectedSong?.cover);
+
+  const handlePlayPause = () => {
+    if (isPlaying) {
+      pauseMix();
+    } else {
+      if (selectedSingers.length === 0) {
+        setAlertTitle("Missing Singers");
+        setAlertMessage(
+          "¡Por favor selecciona al menos un cantante para reproducir!",
+        );
+        setAlertOpen(true);
+        return;
+      }
+      playMix();
+    }
+  };
+
+  const handleDownloadCheck = () => {
+    if (selectedSingers.length === 0) {
+      setAlertTitle("Cannot Download");
+      setAlertMessage(
+        "¡Por favor selecciona al menos un cantante para descargar!",
+      );
+      setAlertOpen(true);
+      return;
+    }
+    handleDownload();
+  };
+
   if (!selectedSong) {
     return (
       <div className="bg-[#0f0f1a] min-h-screen">
@@ -165,72 +198,86 @@ export default function SongMixer({
   }
 
   return (
-    <div className="fixed inset-0 h-[100dvh] w-screen overflow-hidden bg-[#0f0f1a] text-white flex flex-col">
-      <BackgroundEffect coverUrl={selectedSong.cover} />
-
-      <SongMixerHeader
-        title={selectedSong.name}
-        onBack={() => {
-          stopMix();
-          baseHandleSongSelect(null);
-        }}
+    <>
+      <DynamicAlert
+        open={alertOpen}
+        onOpenChange={setAlertOpen}
+        title={alertTitle}
+        description={alertMessage}
+        actionLabel="Entendido"
       />
 
-      <main className="flex-1 overflow-y-auto relative z-10 p-4 custom-scrollbar">
-        <div className="max-w-7xl mx-auto flex flex-col gap-12 py-8">
-          {/* Top Section: Player & Lyrics - Symmetrical Layout */}
-          <div className="flex flex-col items-center gap-8">
-            <div
-              className={`flex flex-col lg:flex-row items-center lg:items-stretch justify-center gap-8 transition-all duration-500 ease-in-out`}
-            >
-              {/* Player Column */}
-              <div className="w-full max-w-md flex flex-col items-center transition-all duration-500">
-                <VinylPlayer
-                  isPlaying={isPlaying}
-                  onPlayPause={isPlaying ? pauseMix : playMix}
-                  coverUrl={selectedSong.cover}
-                  songName={selectedSong.name}
-                  volume={volume}
-                  onVolumeChange={setVolume}
-                  onDownload={handleDownload}
-                  isDownloading={isAudioLoading}
-                  useAudience={useAudience}
-                  onToggleAudience={setUseAudience}
-                  duration={mixDuration}
-                  currentTime={currentMixTime}
-                  onSeek={seekMix}
-                  showLyrics={showLyrics}
-                  onToggleLyrics={setShowLyrics}
-                  hasLyrics={!!hasLyrics}
-                />
-              </div>
+      <div
+        className="fixed inset-0 h-[100dvh] w-screen overflow-hidden bg-[#0f0f1a] text-white flex flex-col transition-colors duration-1000"
+        style={{ "--accent-color": dominantColor } as React.CSSProperties}
+      >
+        <BackgroundEffect coverUrl={selectedSong.cover} />
 
-              {/* Lyrics Column */}
-              {hasLyrics && showLyrics && (
-                <div className="w-full max-w-md animate-fade-in-up h-100 md:h-212">
-                  <LyricsDisplay
-                    lyrics={songLyrics[selectedSong.id]}
+        <SongMixerHeader
+          title={selectedSong.name}
+          onBack={() => {
+            stopMix();
+            baseHandleSongSelect(null);
+          }}
+        />
+
+        <main className="flex-1 overflow-y-auto relative z-10 p-4 custom-scrollbar">
+          <div className="max-w-7xl mx-auto flex flex-col gap-12 py-8">
+            {/* Top Section: Player & Lyrics - Symmetrical Layout */}
+            <div className="flex flex-col items-center gap-8">
+              <div
+                className={`flex flex-col lg:flex-row items-center lg:items-stretch justify-center gap-8 transition-all duration-500 ease-in-out`}
+              >
+                {/* Player Column */}
+                <div className="w-full max-w-md flex flex-col items-center transition-all duration-500">
+                  <VinylPlayer
+                    isPlaying={isPlaying}
+                    onPlayPause={handlePlayPause}
+                    coverUrl={selectedSong.cover}
+                    songName={selectedSong.name}
+                    volume={volume}
+                    onVolumeChange={setVolume}
+                    onDownload={handleDownloadCheck}
+                    isDownloading={isAudioLoading}
+                    useAudience={useAudience}
+                    onToggleAudience={setUseAudience}
+                    duration={mixDuration}
                     currentTime={currentMixTime}
+                    onSeek={seekMix}
+                    showLyrics={showLyrics}
+                    onToggleLyrics={setShowLyrics}
+                    hasLyrics={!!hasLyrics}
+                    analyser={analyserNodeRef.current}
                   />
                 </div>
-              )}
+
+                {/* Lyrics Column */}
+                {hasLyrics && showLyrics && (
+                  <div className="w-full max-w-md animate-fade-in-up h-100 md:h-212">
+                    <LyricsDisplay
+                      lyrics={songLyrics[selectedSong.id]}
+                      currentTime={currentMixTime}
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Bottom Section: Singers */}
+            <div className="w-full">
+              <SingerSelector
+                availableSingers={availableSingers}
+                selectedSingers={selectedSingers}
+                selectedSong={selectedSong}
+                initialCharacterId={initialCharacterId}
+                loadingSingers={loadingSingers}
+                characterData={characterData}
+                onToggleSinger={baseToggleSinger}
+              />
             </div>
           </div>
-
-          {/* Bottom Section: Singers */}
-          <div className="w-full">
-            <SingerSelector
-              availableSingers={availableSingers}
-              selectedSingers={selectedSingers}
-              selectedSong={selectedSong}
-              initialCharacterId={initialCharacterId}
-              loadingSingers={loadingSingers}
-              characterData={characterData}
-              onToggleSinger={baseToggleSinger}
-            />
-          </div>
-        </div>
-      </main>
-    </div>
+        </main>
+      </div>
+    </>
   );
 }
