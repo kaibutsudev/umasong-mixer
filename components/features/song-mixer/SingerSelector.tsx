@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Character } from "@/lib/data/characters";
 import { Song } from "@/lib/data/musicdata";
 import { Singer } from "@/types";
+import { Volume2 } from "lucide-react";
 
 interface SingerSelectorProps {
   availableSingers: Singer[];
@@ -13,8 +14,15 @@ interface SingerSelectorProps {
   loadingSingers: boolean;
   characterData: Character;
   onToggleSinger: (singer: Singer) => void;
+  singerVolumes: { [id: number]: number };
+  onVolumeChange: (id: number, vol: number) => void;
 }
 
+/**
+ * Component for selecting singers (Umas) available for the current song.
+ * Displays a grid of character cards with their images and names.
+ * Includes volume sliders for active mixing of selected singers.
+ */
 export function SingerSelector({
   availableSingers,
   selectedSingers,
@@ -23,6 +31,8 @@ export function SingerSelector({
   loadingSingers,
   characterData,
   onToggleSinger,
+  singerVolumes,
+  onVolumeChange,
 }: SingerSelectorProps) {
   return (
     <div className="bg-black/30 backdrop-blur-md rounded-3xl p-8 border border-white/10">
@@ -51,25 +61,27 @@ export function SingerSelector({
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[var(--accent-color)]"></div>
         </div>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
           {availableSingers.map((singer, idx) => {
             const char = characterData[singer.characterId];
             const isSelected = selectedSingers.some(
               (s) => s.characterId === singer.characterId,
             );
+            const currentVol = singerVolumes[singer.characterId] ?? 1.0;
 
             return (
               <div
                 key={`${singer.characterId}-${singer.version}-${idx}`}
-                onClick={() => onToggleSinger(singer)}
-                className={`relative group cursor-pointer transition-all duration-300 ${
+                className={`relative group flex flex-col items-center transition-all duration-300 ${
                   isSelected
                     ? "transform scale-105"
                     : "opacity-70 hover:opacity-100"
                 }`}
               >
+                {/* Avatar Container */}
                 <div
-                  className={`relative aspect-square rounded-xl overflow-hidden mb-2 border-2 transition-colors ${
+                  onClick={() => onToggleSinger(singer)}
+                  className={`relative w-full aspect-square rounded-xl overflow-hidden mb-2 border-2 cursor-pointer transition-colors ${
                     isSelected
                       ? "border-[var(--accent-color)] shadow-[0_0_15px_var(--accent-color)]"
                       : "border-transparent group-hover:border-white/30"
@@ -101,13 +113,39 @@ export function SingerSelector({
                     </div>
                   )}
                 </div>
+
+                {/* Name */}
                 <p
-                  className={`text-center text-sm font-medium truncate ${
+                  className={`text-center text-sm font-bold truncate mb-2 ${
                     isSelected ? "text-[var(--accent-color)]" : "text-gray-300"
                   }`}
                 >
                   {char?.name_en || "Unknown"}
                 </p>
+
+                {/* Individual Voice Volume Slider (Fader) */}
+                {isSelected && (
+                  <div
+                    className="w-full bg-black/40 rounded-lg p-2 flex items-center gap-2 border border-white/5 animate-fade-in"
+                    onClick={(e) => e.stopPropagation()} // Prevent deselection when adjusting volume
+                  >
+                    <Volume2 className="w-3 h-3 text-gray-500" />
+                    <input
+                      type="range"
+                      min="0"
+                      max="1"
+                      step="0.01"
+                      value={currentVol}
+                      onChange={(e) =>
+                        onVolumeChange(
+                          singer.characterId,
+                          parseFloat(e.target.value),
+                        )
+                      }
+                      className="w-full h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-(--accent-color)"
+                    />
+                  </div>
+                )}
               </div>
             );
           })}
@@ -116,3 +154,4 @@ export function SingerSelector({
     </div>
   );
 }
+

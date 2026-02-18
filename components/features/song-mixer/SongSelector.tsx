@@ -14,6 +14,10 @@ interface SongSelectorProps {
   onSelectHistoryItem?: (item: HistoryItem) => void;
 }
 
+/**
+ * Component for selecting a song from the music database.
+ * Includes a search bar and a history section for quick access to recent mixes.
+ */
 export function SongSelector({
   songs,
   onSelect,

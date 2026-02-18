@@ -8,44 +8,58 @@ interface UseSongMixerAudioProps {
   selectedSingers: Singer[];
   useAudience: boolean;
   volume: number;
+  singerVolumes: { [id: number]: number };
+  playbackRate?: number;
+  nightcoreMode?: boolean;
 }
 
+/**
+ * Custom hook to handle multi-track audio playback and mixing.
+ * Manages BGM (clean or crowd) and multiple singer voice tracks.
+ */
 export function useSongMixerAudio({
   selectedSong,
   selectedSingers,
   useAudience,
   volume,
+  singerVolumes,
+  playbackRate = 1,
+  nightcoreMode = false,
 }: UseSongMixerAudioProps) {
-  // Audio State
+  // --- Audio State ---
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [currentMixTime, setCurrentMixTime] = useState(0);
   const [mixDuration, setMixDuration] = useState(0);
 
-  // Audio Context Refs
+  // --- Audio Context Refs ---
   const audioContextRef = useRef<AudioContext | null>(null);
   const sourceNodesRef = useRef<AudioBufferSourceNode[]>([]);
   const gainNodeRef = useRef<GainNode | null>(null);
   const analyserNodeRef = useRef<AnalyserNode | null>(null);
 
-  // Playback Refs
+  // Map of characterId to their active GainNode
+  const singerGainNodesRef = useRef<{ [id: number]: GainNode }>({});
+
+  // --- Playback Refs ---
   const audioBuffersRef = useRef<{ [key: string]: AudioBuffer }>({});
   const startTimeRef = useRef<number>(0);
   const offsetRef = useRef<number>(0);
   const requestAnimationFrameRef = useRef<number | null>(null);
 
-  // Initialize Audio Context
+  /**
+   * Initialize AudioContext and Analyser on mount
+   */
   useEffect(() => {
     const AudioContextClass =
       window.AudioContext || (window as any).webkitAudioContext;
     audioContextRef.current = new AudioContextClass();
     const gainNode = audioContextRef.current.createGain();
 
-    // Create Analyser
     const analyser = audioContextRef.current.createAnalyser();
-    analyser.fftSize = 256; // Good balance for visualizers
+    analyser.fftSize = 256;
 
-    // Connect: Gain -> Analyser -> Destination
+    // Signal chain: [Source Nodes] -> Individual Gains -> Master Gain -> Analyser -> Destination
     gainNode.connect(analyser);
     analyser.connect(audioContextRef.current.destination);
 
@@ -60,15 +74,36 @@ export function useSongMixerAudio({
     };
   }, []);
 
-  // Handle Volume Changes
+  /**
+   * Sync master volume changes to the master gain node
+   */
   useEffect(() => {
     if (gainNodeRef.current) {
-      console.log("Setting volume to:", volume);
       gainNodeRef.current.gain.value = volume;
     }
   }, [volume]);
 
-  // Preload Buffer Logic
+  /**
+   * Sync individual singer volumes to their respective GainNodes in real-time
+   */
+  useEffect(() => {
+    Object.entries(singerVolumes).forEach(([id, vol]) => {
+      const charId = parseInt(id);
+      const node = singerGainNodesRef.current[charId];
+      if (node) {
+        // Smooth transition to avoid clicking sounds
+        node.gain.setTargetAtTime(
+          vol,
+          audioContextRef.current?.currentTime || 0,
+          0.05,
+        );
+      }
+    });
+  }, [singerVolumes]);
+
+  /**
+   * Preload audio buffers for the selected song
+   */
   useEffect(() => {
     if (!selectedSong || !audioContextRef.current) return;
 
@@ -112,16 +147,19 @@ export function useSongMixerAudio({
     };
   }, [selectedSong]);
 
-  // Helper: Stop Mix
+  /**
+   * Stops all active audio source nodes and cleans up singer gain nodes
+   */
   const stopMix = useCallback(() => {
     sourceNodesRef.current.forEach((node) => {
       try {
         node.stop();
       } catch (e) {
-        // ignore
+        // Source might have already ended
       }
     });
     sourceNodesRef.current = [];
+    singerGainNodesRef.current = {};
     setIsPlaying(false);
 
     if (requestAnimationFrameRef.current) {
@@ -130,12 +168,14 @@ export function useSongMixerAudio({
     }
   }, []);
 
-  // Helper: Update Progress
+  /**
+   * Updates current playback time for UI sync
+   */
   const updateProgress = useCallback(() => {
     if (audioContextRef.current) {
       const elapsed =
-        audioContextRef.current.currentTime -
-        startTimeRef.current +
+        (audioContextRef.current.currentTime - startTimeRef.current) *
+          playbackRate +
         offsetRef.current;
       setCurrentMixTime(Math.min(elapsed, mixDuration));
 
@@ -148,27 +188,25 @@ export function useSongMixerAudio({
         offsetRef.current = 0;
       }
     }
-  }, [mixDuration, stopMix]);
+  }, [mixDuration, stopMix, playbackRate]);
 
-  // Helper: Load Buffers
+  /**
+   * Loads all required audio buffers (BGM + Singers)
+   */
   const loadAudioBuffers = async (): Promise<boolean> => {
-    // console.log("Loading audio buffers for:", selectedSong?.name);
     if (!selectedSong || !audioContextRef.current) {
       return false;
     }
 
     const audioCtx = audioContextRef.current;
 
-    // Load both clean/crowd + singers to ensure seamless toggle
     const bgmUrls = [selectedSong.clean_song, selectedSong.crowd_audio].filter(
       (url) => !!url,
     );
-    // Only try to load non-empty file paths
     const voiceUrls = selectedSingers
       .map((s) => s.file)
       .filter((f) => !!f && f.length > 0);
     const urlsToLoad = Array.from(new Set([...bgmUrls, ...voiceUrls]));
-    // console.log("URLs to load:", urlsToLoad);
 
     try {
       await Promise.all(
@@ -181,15 +219,13 @@ export function useSongMixerAudio({
               const arrayBuffer = await response.arrayBuffer();
               audioBuffersRef.current[url] =
                 await audioCtx.decodeAudioData(arrayBuffer);
-              // console.log("Loaded buffer:", url);
             } catch (innerErr) {
               console.warn(`Failed to load audio: ${url}`, innerErr);
-              // Continue loading others
             }
           }
         }),
       );
-      // Update max duration based on what we have
+
       let maxDur = 0;
       if (
         selectedSong.clean_song &&
@@ -198,7 +234,6 @@ export function useSongMixerAudio({
         maxDur = audioBuffersRef.current[selectedSong.clean_song].duration;
       }
       setMixDuration(maxDur);
-      // console.log("Buffers loaded. Duration:", maxDur);
 
       return true;
     } catch (error) {
@@ -207,44 +242,60 @@ export function useSongMixerAudio({
     }
   };
 
-  // Helper: Play Mix Internal
+  /**
+   * Starts playback of all synced sources at a given offset
+   */
   const playMixInternal = async (startOffset: number = 0) => {
-    // console.log("playMixInternal called. Offset:", startOffset);
     if (!audioContextRef.current || !gainNodeRef.current) return;
 
-    // Force volume update
-    gainNodeRef.current.gain.value = volume;
-    // console.log("Master Gain Value:", gainNodeRef.current.gain.value);
-
-    // Resume context if suspended (policy check)
-    // We do NOT add await here in render loop to avoid blocking UI frame,
-    // but the validation should happen in the user-event handler.
     const audioCtx = audioContextRef.current;
     if (audioCtx.state === "suspended") {
-      // console.log("Resuming suspended context in internal...");
       audioCtx.resume();
     }
+
+    gainNodeRef.current.gain.value = volume;
 
     const bgmUrl = useAudience
       ? selectedSong?.crowd_audio
       : selectedSong?.clean_song;
     if (!bgmUrl) return;
 
-    const voiceUrls = selectedSingers.map((s) => s.file);
-    const urls = [bgmUrl, ...voiceUrls];
-
     const sources: AudioBufferSourceNode[] = [];
     const currentTime = audioCtx.currentTime;
 
-    urls.forEach((url) => {
-      const buffer = audioBuffersRef.current[url];
+    // 1. Setup BGM Source
+    const bgmBuffer = audioBuffersRef.current[bgmUrl];
+    if (bgmBuffer) {
+      const source = audioCtx.createBufferSource();
+      source.buffer = bgmBuffer;
+      source.playbackRate.value = playbackRate;
+      source.connect(gainNodeRef.current!);
+      source.start(currentTime, startOffset);
+      sources.push(source);
+    }
+
+    // 2. Setup Individual Singer Sources with their own GainNodes
+    selectedSingers.forEach((singer) => {
+      const buffer = audioBuffersRef.current[singer.file];
       if (buffer) {
         const source = audioCtx.createBufferSource();
         source.buffer = buffer;
-        source.connect(gainNodeRef.current!);
+        source.playbackRate.value = playbackRate;
+
+        // Create individual gain for cross-fading
+        const singerGain = audioCtx.createGain();
+        const initialVol = singerVolumes[singer.characterId] ?? 1.0;
+        singerGain.gain.value = initialVol;
+
+        // source -> singerGain -> masterGain
+        source.connect(singerGain);
+        singerGain.connect(gainNodeRef.current!);
+
         source.start(currentTime, startOffset);
         sources.push(source);
-        // console.log("Started source for:", url);
+
+        // Store gain node for real-time updates
+        singerGainNodesRef.current[singer.characterId] = singerGain;
       }
     });
 
@@ -252,7 +303,6 @@ export function useSongMixerAudio({
     startTimeRef.current = currentTime;
     offsetRef.current = startOffset;
     setIsPlaying(true);
-    // console.log("Playback started. Sources:", sources.length);
 
     if (requestAnimationFrameRef.current) {
       cancelAnimationFrame(requestAnimationFrameRef.current);
@@ -260,36 +310,31 @@ export function useSongMixerAudio({
     requestAnimationFrameRef.current = requestAnimationFrame(updateProgress);
   };
 
-  // Main Action: Play
+  /**
+   * Main Play action: Resumes or starts fresh if needed
+   */
   const playMix = async () => {
-    // console.log("playMix called. Song:", selectedSong?.name);
     if (!selectedSong) return;
 
     const audioCtx = audioContextRef.current;
-    // console.log("Audio Context State:", audioCtx?.state);
 
-    // If paused (suspended) AND we have active sources, just resume
+    // Resume suspended context if we already have sources
     if (
       audioCtx &&
       audioCtx.state === "suspended" &&
       sourceNodesRef.current.length > 0
     ) {
-      // console.log("Resuming existing sources...");
       await audioCtx.resume();
       setIsPlaying(true);
       requestAnimationFrameRef.current = requestAnimationFrame(updateProgress);
       return;
     }
 
-    // If context is suspended but we need to start fresh (e.g. first play or after singer change),
-    // ensure we resume it before creating new sources.
     if (audioCtx && audioCtx.state === "suspended") {
-      // console.log("Resuming context before fresh start...");
       await audioCtx.resume();
     }
 
-    // Normal Start Behavior
-    stopMix(); // Clear any existing nodes
+    stopMix();
     setIsLoading(true);
 
     const success = await loadAudioBuffers();
@@ -302,7 +347,9 @@ export function useSongMixerAudio({
     setIsLoading(false);
   };
 
-  // Main Action: Pause
+  /**
+   * Pauses the audio context
+   */
   const pauseMix = () => {
     if (audioContextRef.current?.state === "running") {
       audioContextRef.current.suspend();
@@ -310,35 +357,40 @@ export function useSongMixerAudio({
     }
   };
 
-  // Main Action: Seek
+  /**
+   * Seeks to a specific time in the mix
+   */
   const seekMix = (time: number) => {
     if (!selectedSong || selectedSingers.length === 0) return;
     stopMix();
-    // Assume already loaded if seeking
     playMixInternal(time);
   };
 
-  // Handle Audience Toggle Live
+  /**
+   * Handles audience toggle mid-playback with seamless sync
+   */
   useEffect(() => {
     if (isPlaying) {
-      // calculate current time and seamless seek
       const currentTime =
         offsetRef.current +
         (audioContextRef.current?.currentTime || 0) -
         startTimeRef.current;
-      // re-trigger play with new track
-      // We do this by stopping current sources and starting new ones at same offset
-      // But we must NOT use stopMix() clearing "isPlaying" state if we want seamless.
-      // Actually stopMix() sets isPlaying false. Let's manually swap sources or just re-call seek logic.
-      // Calling seekMix(currentTime) effectively stops and restarts.
-
-      // We need to stop old sources first manually to avoid "stopMix" state side effects if we want to stay "playing"
-      // reuse seek logic:
       seekMix(currentTime);
     }
   }, [useAudience]);
 
-  // Helper: Download
+  // Handle Playback Rate Change (Nightcore)
+  useEffect(() => {
+    if (isPlaying) {
+      // Seek to current time to reset source nodes with new playback rate
+      seekMix(currentMixTime);
+    }
+  }, [playbackRate]);
+
+  /**
+   * Renders the current mix to an MP3 file for download.
+   * Respects individual singer volumes and playback rate.
+   */
   const handleDownload = async () => {
     if (!selectedSong || selectedSingers.length === 0) return;
     setIsLoading(true);
@@ -346,36 +398,67 @@ export function useSongMixerAudio({
       const audioCtx = new (
         window.AudioContext || (window as any).webkitAudioContext
       )();
+
       const bgmUrl = useAudience
         ? selectedSong.crowd_audio
         : selectedSong.clean_song;
-      const voiceUrls = selectedSingers.map((s) => s.file);
-      const urls = [bgmUrl, ...voiceUrls];
 
-      const buffers = await Promise.all(
-        urls.map(async (url) => {
-          const response = await fetch(url);
-          const arrayBuffer = await response.arrayBuffer();
-          return await audioCtx.decodeAudioData(arrayBuffer);
-        }),
-      );
+      // Load BGM and Voice buffers
+      const bgmBufferPromise = fetch(bgmUrl)
+        .then((r) => r.arrayBuffer())
+        .then((ab) => audioCtx.decodeAudioData(ab));
+      const voiceBuffersPromises = selectedSingers.map(async (s) => {
+        const response = await fetch(s.file);
+        const arrayBuffer = await response.arrayBuffer();
+        const buffer = await audioCtx.decodeAudioData(arrayBuffer);
+        return { id: s.characterId, buffer };
+      });
 
-      const maxDuration = Math.max(...buffers.map((b) => b.duration));
+      const bgmBuffer = await bgmBufferPromise;
+      const voiceBuffers = await Promise.all(voiceBuffersPromises);
+
+      // Calculate max duration accounting for playback rate
+      const maxDuration =
+        Math.max(
+          bgmBuffer.duration,
+          ...voiceBuffers.map((vb) => vb.buffer.duration),
+        ) / playbackRate;
+
       const offlineCtx = new OfflineAudioContext(2, maxDuration * 44100, 44100);
 
-      buffers.forEach((buffer) => {
+      // Create master gain for the offline context
+      const masterGain = offlineCtx.createGain();
+      masterGain.gain.value = volume;
+      masterGain.connect(offlineCtx.destination);
+
+      // 1. Setup BGM for render
+      const bgmSource = offlineCtx.createBufferSource();
+      bgmSource.buffer = bgmBuffer;
+      bgmSource.playbackRate.value = playbackRate;
+      bgmSource.connect(masterGain);
+      bgmSource.start(0);
+
+      // 2. Setup Voices for render
+      voiceBuffers.forEach(({ id, buffer }) => {
         const source = offlineCtx.createBufferSource();
         source.buffer = buffer;
-        source.connect(offlineCtx.destination);
+        source.playbackRate.value = playbackRate;
+
+        const singerGain = offlineCtx.createGain();
+        singerGain.gain.value = singerVolumes[id] ?? 1.0;
+
+        source.connect(singerGain);
+        singerGain.connect(masterGain);
         source.start(0);
       });
 
       const renderedBuffer = await offlineCtx.startRendering();
       const mp3Blob = audioBufferToMp3(renderedBuffer);
       const url = URL.createObjectURL(mp3Blob);
+
       const a = document.createElement("a");
       a.href = url;
-      a.download = `${selectedSong.name} - Mix.mp3`;
+      a.download = `${selectedSong.name} - ${nightcoreMode ? "Nightcore " : ""}Mix.mp3`;
       a.click();
       URL.revokeObjectURL(url);
     } catch (e) {
@@ -399,3 +482,4 @@ export function useSongMixerAudio({
     analyserNodeRef,
   };
 }
+

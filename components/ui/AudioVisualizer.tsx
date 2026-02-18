@@ -8,6 +8,10 @@ interface AudioVisualizerProps {
   color?: string;
 }
 
+/**
+ * Circular audio visualizer component that renders frequency data onto a canvas.
+ * Designed to be positioned behind the VinylPlayer record.
+ */
 export default function AudioVisualizer({
   analyser,
   isPlaying,
@@ -29,7 +33,7 @@ export default function AudioVisualizer({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Set canvas size (visualizer should be larger than the vinyl)
+    // Set canvas internal resolution
     const size = 600;
     canvas.width = size;
     canvas.height = size;
@@ -37,11 +41,13 @@ export default function AudioVisualizer({
     const bufferLength = analyser.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
     
-    // Config
     const centerX = size / 2;
     const centerY = size / 2;
-    const baseRadius = 170; // Slightly larger than max vinyl radius (160px)
+    const baseRadius = 170; // Positioned just outside the vinyl edge
     
+    /**
+     * Animation loop for drawing frequency bars
+     */
     const draw = () => {
       animationRef.current = requestAnimationFrame(draw);
 
@@ -52,24 +58,21 @@ export default function AudioVisualizer({
       
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Draw circular bars
-      const bars = 120; // More bars for smoother circle
+      // Rendering 120 radial bars
+      const bars = 120;
       const step = Math.ceil(bufferLength / bars);
       
       for (let i = 0; i < bars; i++) {
-        // Get frequency value
         const value = dataArray[i * step] || 0; 
         
-        // Scale bar height - modulate with value
-        const barHeight = (value / 255) * 100; // Max 100px length
+        // Modulate bar length based on frequency intensity
+        const barHeight = (value / 255) * 100; // 0px to 100px extension
         
         const angle = (i * 2 * Math.PI) / bars;
         
-        // Start point (on the radius)
+        // Geometry: Line starts at baseRadius and extends outwards
         const x1 = centerX + Math.cos(angle) * baseRadius;
         const y1 = centerY + Math.sin(angle) * baseRadius;
-        
-        // End point (outwards)
         const x2 = centerX + Math.cos(angle) * (baseRadius + barHeight);
         const y2 = centerY + Math.sin(angle) * (baseRadius + barHeight);
         
@@ -77,7 +80,7 @@ export default function AudioVisualizer({
         ctx.moveTo(x1, y1);
         ctx.lineTo(x2, y2);
         
-        // Create gradient for the bar
+        // Visual Style: Gradient fade-out
         const gradient = ctx.createLinearGradient(x1, y1, x2, y2);
         gradient.addColorStop(0, color);
         gradient.addColorStop(1, "transparent");
@@ -86,7 +89,7 @@ export default function AudioVisualizer({
         ctx.lineWidth = 4;
         ctx.lineCap = "round";
         
-        // Optional: Add glow only if value is high enough to save perf
+        // Bloom effect for high intensity frequencies
         if (value > 100) {
             ctx.shadowBlur = 10;
             ctx.shadowColor = color;
@@ -106,6 +109,7 @@ export default function AudioVisualizer({
       }
     };
   }, [analyser, isPlaying, color]);
+
 
   return (
     <canvas

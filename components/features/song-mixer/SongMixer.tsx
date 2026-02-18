@@ -35,125 +35,57 @@ interface SongMixerProps {
   initialCharacterId?: number;
 }
 
+/**
+ * Main Song Mixer component.
+ * Orchestrates song selection, singer selection, audio playback, and visual effects.
+ */
 export default function SongMixer({
   songs,
   characterData,
   initialSongId,
   initialCharacterId,
 }: SongMixerProps) {
-  // Alert State
+  // --- UI & Modal State ---
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertTitle, setAlertTitle] = useState("");
   const [alertMessage, setAlertMessage] = useState("");
-
-  // Share Modal State
   const [shareOpen, setShareOpen] = useState(false);
-
-  // History Hooks
-  const { addToHistory } = useMixHistory();
-
-  // Zen Mode State
   const [isZenMode, setIsZenMode] = useState(false);
 
-  // Audio Playback Hook (initialized first to pass stopMix)
-  // We need to pass stopMix to the state hook, but `useSongMixerAudio` needs state.
-  // This is a circular dependency if we're not careful.
-  // Ideally, state hook handles SELECTION, audio hook handles PLAYBACK.
-  // But audio hook needs selectedSong/singers.
+  // --- History Hooks ---
+  const { addToHistory, history } = useMixHistory();
 
-  // Let's keep useSongMixerAudio here, but its dependencies will come from the state hook.
-  // We can pass a ref or a wrapper callback to the state hook?
-  // Or just accept that we might need to call stopMix inside the render logic where we pass the handler?
-  // No, the handler is inside the hook.
-
-  // Solution: Instantiate state hook first, then audio hook.
-  // But state hook wants onStopMix.
-  // Circular dependency.
-
-  // Refactor: We can lift `handleSongSelect` logic out or pass `stopMix` via a `useEffect`?
-  // Or, simpler:
-  // `useSongMixerState` creates the state.
-  // `useSongMixerAudio` uses the state.
-  // `SongMixer` component creates the handlers that combine them.
-
-  // Let's revert `useSongMixerState` having `handleSongSelect`.
-  // Wait, I already wrote `useSongMixerState` with `handleSongSelect`.
-  // I can just pass `() => {}` initially or handle it differently?
-
-  // Actually, `useSongMixerAudio` returns `stopMix`.
-  // `useSongMixerState` takes `onStopMix`.
-  // We can't use the return value of a hook as an argument to a hook called BEFORE it.
-
-  // Let's modify the usage pattern.
-  // We will pull the state variables out of `useSongMixerState` but MAYBE manage the "stop functionality" in the effect of `selectedSong` changing?
-  // If `selectedSong` changes, `useSongMixerAudio` should probably stop itself?
-  // Let's check `useSongMixerAudio`.
-
-  // In `useSongMixerAudio.ts`:
-  /*
-    useEffect(() => {
-        stopMix();
-    }, [selectedSong, selectedSingers]);
-  */
-  // If `useSongMixerAudio` already creates an effect to stop when song changes, we don't need to manually call `stopMix` in `handleSongSelect`!
-  // Let's quick-check `useSongMixerAudio.ts`.
-  // I can't check it right now without a tool call.
-  // But usually, changing source *should* stop playback.
-
-  // Assuming `useSongMixerAudio` handles cleanup on prop change, we can remove `onStopMix` from `useSongMixerState`.
-  // But wait, explicit user action (clicking a song) often wants to trigger immediate stop.
-
-  // Let's use a ref for `stopMix`?
-  // Or just inline the `handleSongSelect` in the component again, but keep strictly state management in the hook.
-
-  // Better yet: define the audio hook *inside* the component, and pass its `stopMix` to a `useEffect` that watches `selectedSong`?
-
-  // Let's try this:
-  // Call `useSongMixerState` without `onStopMix`.
-  // Call `useSongMixerAudio`.
-  // In `useEffect(() => { stopMix() }, [selectedSong])`, we ensure it stops.
-
-  // But `useSongMixerState` was written to take `onStopMix`. I need to update it or pass a dummy and handle it in component.
-  // Passing a dummy is ugly.
-
-  // Let's update `SongMixer.tsx` to just use the new components first,
-  // and MAYBE keep the state logic inline if it's too coupled, OR
-  // accept that I need to update `useSongMixerState` to NOT take `onStopMix` and rely on Effects.
-
-  // Let's rewrite `useSongMixerState` to NOT take `onStopMix` via a separate tool call first?
-  // No, I can't do parallel edits on different files easily without multiple turns.
-
-  // I will implement `SongMixer` to define the state controls LOCALLY for now, but using the structure I wanted?
-  // No, `useSongMixerState` is already written. I must match its signature.
-  // I can pass an empty function `() => {}` and handle the stopping via `useEffect` in `SongMixer`.
-
-  // Wait, `handleSongSelect` in `useSongMixerState` calls `onStopMix`.
-  // If I pass `() => {}`, it does nothing.
-  // Then I add `useEffect(() => { stopMix() }, [selectedSong])` in `SongMixer`.
-  // This works.
-
-  // Let's do that.
-
+  /**
+   * Initialize state hook.
+   * Note: onStopMix is handled via a dedicated effect to avoid circular dependency with audio hook.
+   */
   const {
     selectedSong,
     availableSingers,
     selectedSingers,
     useAudience,
     volume,
+    singerVolumes,
+    nightcoreMode,
     loadingSingers,
     showLyrics,
     handleSongSelect: baseHandleSongSelect,
     toggleSinger: baseToggleSinger,
     setUseAudience,
     setVolume,
+    updateSingerVolume,
+    setNightcoreMode,
     setShowLyrics,
   } = useSongMixerState({
     songs,
     initialSongId,
     initialCharacterId,
-    onStopMix: () => {}, // Handled via effect
+    onStopMix: () => {}, // Handled via effect below
   });
 
+  /**
+   * Initialize audio playback hook.
+   */
   const {
     isPlaying,
     isLoading: isAudioLoading,
@@ -170,25 +102,30 @@ export default function SongMixer({
     selectedSingers,
     useAudience,
     volume,
+    singerVolumes,
+    playbackRate: nightcoreMode ? 1.25 : 1,
+    nightcoreMode,
   });
 
-  // Ensure audio stops when song changes (redundant if hook does it, but safe)
+  /**
+   * Cleanup playback when song changes.
+   */
   useEffect(() => {
     stopMix();
   }, [selectedSong, stopMix]);
 
-  // Determine if we should show lyrics toggle
   const hasLyrics = selectedSong && songLyrics[selectedSong.id];
-
-  // Dynamic Theme Color
   const dominantColor = useDominantColor(selectedSong?.cover);
 
+  /**
+   * Toggles playback state or shows alert if no singers are selected.
+   */
   const handlePlayPause = () => {
     if (isPlaying) {
       pauseMix();
     } else {
       if (selectedSingers.length === 0) {
-        setAlertTitle("Missing Singers");
+        setAlertTitle("Faltan Cantantes");
         setAlertMessage(
           "¡Por favor selecciona al menos un cantante para reproducir!",
         );
@@ -202,9 +139,12 @@ export default function SongMixer({
     }
   };
 
+  /**
+   * Validates selection before triggering download.
+   */
   const handleDownloadCheck = () => {
     if (selectedSingers.length === 0) {
-      setAlertTitle("Cannot Download");
+      setAlertTitle("No se puede descargar");
       setAlertMessage(
         "¡Por favor selecciona al menos un cantante para descargar!",
       );
@@ -219,23 +159,21 @@ export default function SongMixer({
     setShareOpen(true);
   };
 
+  /**
+   * Maps selected singers to the display format required by the Share Modal.
+   */
   const selectedSingerData = selectedSingers.map((s) => {
     const charGroup = characterData[s.characterId];
-    // Default to first version or fallback
     const charVersion = charGroup?.versions[0];
 
     return {
       name: charVersion?.name_en ?? s.characterId.toString(),
       image: charVersion?.character_img ?? "/placeholder.png",
-      // Generate a stable color from ID if not present? Or use white.
-      // The Character type doesn't seem to have 'color' on root or stats based on my read of characters.ts
-      // Let's use a default or generate one.
       color: "#ffffff",
     };
   });
 
-  const { history } = useMixHistory();
-
+  // Render Song Selection screen if no song is selected
   if (!selectedSong) {
     return (
       <div className="bg-[#0f0f1a] min-h-screen">
@@ -243,35 +181,6 @@ export default function SongMixer({
           songs={songs}
           onSelect={baseHandleSongSelect}
           history={history}
-          onSelectHistoryItem={(item: HistoryItem) => {
-            // We need to set song AND singers.
-            // baseHandleSongSelect takes a Song.
-            // toggleSinger takes a Singer.
-
-            const song = songs.find((s) => s.id === item.songId);
-            if (song) {
-              // This will set the URL for Song
-              baseHandleSongSelect(song);
-
-              // We also need to set the singers in the URL.
-              // baseHandleSongSelect redirects.
-              // We should probably just construct the full URL here and push it?
-              // Or let SongSelector handle the navigation?
-
-              // Ideally, pass a handler that does both.
-              // But baseHandleSongSelect is async and triggers navigation.
-
-              // Let's defer this to SongSelector or handle it here by manually constructing the URL push?
-              // Doing it here is cleaner if we have access to router. But router is inside useSongMixerState.
-
-              // Hack: We can call handleSongSelect, wait, then... no.
-              // BETTER: SongSelector just navigates to `/?songId=X&singers=Y,Z`.
-              // So we don't need onSelectHistoryItem to call function props, just navigation.
-
-              // Actually, SongSelector is a client component. It can use useRouter.
-              // So we just need to pass the history list.
-            }
-          }}
         />
       </div>
     );
@@ -303,6 +212,7 @@ export default function SongMixer({
         <BackgroundEffect coverUrl={selectedSong.cover} />
         <ParticleBackground isPlaying={isPlaying} accentColor={dominantColor} />
 
+        {/* Header - Hidden in Zen Mode */}
         <div
           className={`transition-all duration-500 ease-in-out ${isZenMode ? "-mt-[88px] opacity-0 pointer-events-none" : "opacity-100"}`}
         >
@@ -332,7 +242,7 @@ export default function SongMixer({
 
         <main className="flex-1 overflow-y-auto relative z-10 p-4 custom-scrollbar">
           <div className="max-w-7xl mx-auto flex flex-col gap-12 py-8">
-            {/* Top Section: Player & Lyrics - Symmetrical Layout */}
+            {/* Top Section: Player & Lyrics */}
             <div className="flex flex-col items-center gap-8">
               <div
                 className={`flex flex-col lg:flex-row items-center lg:items-stretch justify-center gap-8 transition-all duration-500 ease-in-out`}
@@ -360,6 +270,8 @@ export default function SongMixer({
                     hasLyrics={!!hasLyrics}
                     analyser={analyserNodeRef.current}
                     accentColor={dominantColor}
+                    nightcoreMode={nightcoreMode}
+                    onToggleNightcore={setNightcoreMode}
                   />
                 </div>
 
@@ -389,6 +301,8 @@ export default function SongMixer({
                 loadingSingers={loadingSingers}
                 characterData={characterData}
                 onToggleSinger={baseToggleSinger}
+                singerVolumes={singerVolumes}
+                onVolumeChange={updateSingerVolume}
               />
             </div>
           </div>
@@ -397,3 +311,4 @@ export default function SongMixer({
     </>
   );
 }
+

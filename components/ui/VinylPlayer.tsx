@@ -24,6 +24,8 @@ interface VinylPlayerProps {
   hasLyrics?: boolean;
   analyser?: AnalyserNode | null;
   accentColor?: string;
+  nightcoreMode?: boolean;
+  onToggleNightcore?: (val: boolean) => void;
 }
 
 const formatTime = (seconds: number) => {
@@ -32,6 +34,10 @@ const formatTime = (seconds: number) => {
   return `${mins}:${secs.toString().padStart(2, "0")}`;
 };
 
+/**
+ * Vinyl Player component that displays a rotating record with cover art,
+ * playback controls, progress bar, and mode toggles.
+ */
 export default function VinylPlayer({
   isPlaying,
   onPlayPause,
@@ -51,6 +57,8 @@ export default function VinylPlayer({
   hasLyrics,
   analyser,
   accentColor,
+  nightcoreMode,
+  onToggleNightcore,
 }: VinylPlayerProps) {
   const [isMuted, setIsMuted] = useState(false);
   const [isSeeking, setIsSeeking] = useState(false);
@@ -58,7 +66,9 @@ export default function VinylPlayer({
 
   const prevVolumeRef = useRef(volume);
 
-  // Sync seek value with currentTime when not seeking
+  /**
+   * Sync seek slider with current playback time when the user is not dragging it.
+   */
   useEffect(() => {
     if (!isSeeking) {
       setSeekValue(currentTime);
@@ -80,6 +90,9 @@ export default function VinylPlayer({
     }
   };
 
+  /**
+   * Toggles mute state and remembers previous volume.
+   */
   const handleMuteToggle = () => {
     if (isMuted) {
       onVolumeChange(prevVolumeRef.current);
@@ -93,36 +106,35 @@ export default function VinylPlayer({
 
   return (
     <div className="flex flex-col items-center justify-center gap-8 p-8 bg-black/40 backdrop-blur-xl rounded-3xl border border-white/10 shadow-2xl max-w-md w-full">
-      {/* Vinyl Container */}
+      {/* --- Vinyl Record Section --- */}
       <div className="relative w-64 h-64 md:w-80 md:h-80 group">
-        {/* Audio Visualizer */}
         <AudioVisualizer
           analyser={analyser || null}
           isPlaying={isPlaying}
           color={accentColor}
         />
 
-        {/* Glow Effect */}
+        {/* Dynamic Glow Background */}
         <div
           className={`absolute inset-0 rounded-full bg-linear-to-tr from-[var(--accent-color)] to-[color-mix(in_srgb,var(--accent-color),#000_20%)] blur-2xl transition-opacity duration-1000 opacity-30 ${
             isPlaying ? "opacity-100 animate-pulse" : "opacity-30"
           }`}
         />
 
-        {/* Vinyl Record */}
+        {/* Physical Vinyl Record Representation */}
         <div
           className={`relative w-full h-full rounded-full bg-black border-4 border-gray-800 shadow-2xl overflow-hidden ${
             isPlaying ? "animate-spin-slow" : ""
           }`}
           style={{ animationPlayState: isPlaying ? "running" : "paused" }}
         >
-          {/* Vinyl Grooves Texture */}
+          {/* Texture: Lathe Grooves */}
           <div className="absolute inset-0 rounded-full opacity-20 bg-[repeating-radial-gradient(#333_0,#333_2px,#111_3px,#111_4px)]" />
 
-          {/* Vinyl Shine */}
+          {/* Texture: Surface Shine */}
           <div className="absolute inset-0 rounded-full bg-linear-to-br from-white/10 via-transparent to-transparent opacity-50" />
 
-          {/* Center Label / Cover */}
+          {/* Center Label (Album Cover) */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1/2 h-1/2 rounded-full overflow-hidden border-4 border-gray-900 shadow-inner">
             <Image
               src={coverUrl}
@@ -136,7 +148,7 @@ export default function VinylPlayer({
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-gray-200 rounded-full border border-gray-400 shadow-inner z-10" />
         </div>
 
-        {/* Tonearm (Decorative) */}
+        {/* Decorative Tonearm */}
         <div
           className={`absolute -top-4 -right-4 w-24 h-32 origin-top-right transition-transform duration-700 ease-in-out z-20 pointer-events-none ${
             isPlaying ? "rotate-12" : "-rotate-12"
@@ -148,19 +160,19 @@ export default function VinylPlayer({
         </div>
       </div>
 
-      {/* Controls */}
+      {/* --- Information Section --- */}
       <div className="w-full flex flex-col gap-6">
         <div className="text-center">
           <h3 className="text-2xl font-bold text-white mb-1 drop-shadow-md">
             {songName}
           </h3>
           <p className="text-[var(--accent-color)] text-sm font-medium tracking-wider uppercase">
-            Now Playing
+            {isPlaying ? "Reproduciendo ahora" : "En pausa"}
           </p>
         </div>
 
+        {/* Main Controls: Play/Pause/Download */}
         <div className="flex items-center justify-center gap-6">
-          {/* Play/Pause Button */}
           <button
             onClick={onPlayPause}
             className="w-16 h-16 flex items-center justify-center rounded-full bg-white text-black hover:scale-105 active:scale-95 transition-all shadow-[0_0_20px_rgba(255,255,255,0.3)]"
@@ -172,7 +184,6 @@ export default function VinylPlayer({
             )}
           </button>
 
-          {/* Download Button */}
           {onDownload && (
             <button
               onClick={onDownload}
@@ -189,7 +200,7 @@ export default function VinylPlayer({
           )}
         </div>
 
-        {/* Progress Bar */}
+        {/* Playback Seek Bar */}
         <div className="flex flex-col gap-2 w-full">
           <input
             type="range"
@@ -216,97 +227,142 @@ export default function VinylPlayer({
           </div>
         </div>
 
-        {/* Lyrics Mode Toggle */}
-        {hasLyrics && onToggleLyrics && (
-          <div className="flex items-center justify-between px-4 py-3 bg-black/20 rounded-xl border border-white/5 w-full">
-            <div className="flex items-center gap-3">
-              <div
-                className={`p-2 rounded-full ${
-                  showLyrics
-                    ? "bg-[color-mix(in_srgb,var(--accent-color),transparent_80%)] text-[var(--accent-color)]"
-                    : "bg-white/5 text-gray-400"
+        {/* Feature Switches: Lyrics & Audience */}
+        <div className="flex flex-col gap-3">
+          {hasLyrics && onToggleLyrics && (
+            <div className="flex items-center justify-between px-4 py-3 bg-black/20 rounded-xl border border-white/5 w-full">
+              <div className="flex items-center gap-3">
+                <div
+                  className={`p-2 rounded-full ${
+                    showLyrics
+                      ? "bg-[color-mix(in_srgb,var(--accent-color),transparent_80%)] text-[var(--accent-color)]"
+                      : "bg-white/5 text-gray-400"
+                  }`}
+                >
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                    />
+                  </svg>
+                </div>
+                <span className="text-sm font-medium text-gray-300">
+                  Lyrics Display
+                </span>
+              </div>
+
+              <button
+                onClick={() => onToggleLyrics(!showLyrics)}
+                className={`w-12 h-6 flex items-center rounded-full p-1 transition-colors duration-200 focus:outline-none ${
+                  showLyrics ? "bg-[var(--accent-color)]" : "bg-gray-700"
                 }`}
               >
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                  />
-                </svg>
-              </div>
-              <span className="text-sm font-medium text-gray-300">
-                Lyrics Display
-              </span>
+                <div
+                  className={`bg-white w-4 h-4 rounded-full shadow-md transform transition-transform duration-200 ${
+                    showLyrics ? "translate-x-6" : "translate-x-0"
+                  }`}
+                />
+              </button>
             </div>
+          )}
 
-            <button
-              onClick={() => onToggleLyrics(!showLyrics)}
-              className={`w-12 h-6 flex items-center rounded-full p-1 transition-colors duration-200 focus:outline-none ${
-                showLyrics ? "bg-[var(--accent-color)]" : "bg-gray-700"
-              }`}
-            >
-              <div
-                className={`bg-white w-4 h-4 rounded-full shadow-md transform transition-transform duration-200 ${
-                  showLyrics ? "translate-x-6" : "translate-x-0"
-                }`}
-              />
-            </button>
-          </div>
-        )}
+          {onToggleAudience && (
+            <div className="flex items-center justify-between px-4 py-3 bg-black/20 rounded-xl border border-white/5 w-full">
+              <div className="flex items-center gap-3">
+                <div
+                  className={`p-2 rounded-full ${
+                    useAudience
+                      ? "bg-[color-mix(in_srgb,var(--accent-color),transparent_80%)] text-[var(--accent-color)]"
+                      : "bg-white/5 text-gray-400"
+                  }`}
+                >
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                    />
+                  </svg>
+                </div>
+                <span className="text-sm font-medium text-gray-300">
+                  Audience Mode
+                </span>
+              </div>
 
-        {/* Audience Mode Toggle */}
-        {onToggleAudience && (
-          <div className="flex items-center justify-between px-4 py-3 bg-black/20 rounded-xl border border-white/5 w-full">
-            <div className="flex items-center gap-3">
-              <div
-                className={`p-2 rounded-full ${
-                  useAudience
-                    ? "bg-[color-mix(in_srgb,var(--accent-color),transparent_80%)] text-[var(--accent-color)]"
-                    : "bg-white/5 text-gray-400"
+              <button
+                onClick={() => onToggleAudience(!useAudience)}
+                className={`w-12 h-6 flex items-center rounded-full p-1 transition-colors duration-200 focus:outline-none ${
+                  useAudience ? "bg-[var(--accent-color)]" : "bg-gray-700"
                 }`}
               >
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-                  />
-                </svg>
-              </div>
-              <span className="text-sm font-medium text-gray-300">
-                Audience Mode
-              </span>
+                <div
+                  className={`bg-white w-4 h-4 rounded-full shadow-md transform transition-transform duration-200 ${
+                    useAudience ? "translate-x-6" : "translate-x-0"
+                  }`}
+                />
+              </button>
             </div>
+          )}
 
-            <button
-              onClick={() => onToggleAudience(!useAudience)}
-              className={`w-12 h-6 flex items-center rounded-full p-1 transition-colors duration-200 focus:outline-none ${
-                useAudience ? "bg-[var(--accent-color)]" : "bg-gray-700"
-              }`}
-            >
-              <div
-                className={`bg-white w-4 h-4 rounded-full shadow-md transform transition-transform duration-200 ${
-                  useAudience ? "translate-x-6" : "translate-x-0"
+          {onToggleNightcore && (
+            <div className="flex items-center justify-between px-4 py-3 bg-black/20 rounded-xl border border-white/5 w-full">
+              <div className="flex items-center gap-3">
+                <div
+                  className={`p-2 rounded-full ${
+                    nightcoreMode
+                      ? "bg-[color-mix(in_srgb,var(--accent-color),transparent_80%)] text-[var(--accent-color)]"
+                      : "bg-white/5 text-gray-400"
+                  }`}
+                >
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M13 10V3L4 14h7v7l9-11h-7z"
+                    />
+                  </svg>
+                </div>
+                <span className="text-sm font-medium text-gray-300">
+                  Nightcore Mode
+                </span>
+              </div>
+
+              <button
+                onClick={() => onToggleNightcore(!nightcoreMode)}
+                className={`w-12 h-6 flex items-center rounded-full p-1 transition-colors duration-200 focus:outline-none ${
+                  nightcoreMode ? "bg-[var(--accent-color)]" : "bg-gray-700"
                 }`}
-              />
-            </button>
-          </div>
-        )}
+              >
+                <div
+                  className={`bg-white w-4 h-4 rounded-full shadow-md transform transition-transform duration-200 ${
+                    nightcoreMode ? "translate-x-6" : "translate-x-0"
+                  }`}
+                />
+              </button>
+            </div>
+          )}
+        </div>
 
-        {/* Volume Control */}
+        {/* Master Volume Slider */}
         <div className="flex items-center gap-4 px-4 py-3 bg-black/20 rounded-xl border border-white/5">
           <button
             onClick={handleMuteToggle}

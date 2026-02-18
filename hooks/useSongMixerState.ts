@@ -10,6 +10,10 @@ interface UseSongMixerStateProps {
   onStopMix: () => void; // Callback to stop audio
 }
 
+/**
+ * Custom hook to manage the state of the song mixer, including selections,
+ * UI controls, and URL synchronization.
+ */
 export function useSongMixerState({
   songs,
   initialSongId,
@@ -19,22 +23,33 @@ export function useSongMixerState({
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  // ============================================================================
-  // STATE
-  // ============================================================================
+  // --- Mixer Selection State ---
   const [selectedSong, setSelectedSong] = useState<Song | null>(null);
   const [availableSingers, setAvailableSingers] = useState<Singer[]>([]);
   const [selectedSingers, setSelectedSingers] = useState<Singer[]>([]);
 
-  // UI Controls
+  // --- UI Control State ---
   const [useAudience, setUseAudience] = useState(false);
   const [volume, setVolume] = useState(0.8);
+  const [singerVolumes, setSingerVolumes] = useState<{ [id: number]: number }>({});
+  const [nightcoreMode, setNightcoreMode] = useState(false);
   const [loadingSingers, setLoadingSingers] = useState(false);
   const [showLyrics, setShowLyrics] = useState(true);
 
-  // ============================================================================
-  // HANDLERS
-  // ============================================================================
+  /**
+   * Updates the volume of a specific singer.
+   */
+  const updateSingerVolume = (characterId: number, vol: number) => {
+    setSingerVolumes((prev) => ({
+      ...prev,
+      [characterId]: vol,
+    }));
+  };
+
+  /**
+   * Handles song selection and updates the URL.
+   * Triggers onStopMix to ensure cleanup of current playback.
+   */
   const handleSongSelect = async (song: Song | null) => {
     onStopMix();
 
@@ -42,21 +57,21 @@ export function useSongMixerState({
       setSelectedSong(null);
       setSelectedSingers([]);
       setAvailableSingers([]);
-      // Remove songId from URL
+      
       const params = new URLSearchParams(searchParams.toString());
       params.delete("songId");
       router.push(`?${params.toString()}`);
       return;
     }
 
-    // Update URL to reflect selected song
     const params = new URLSearchParams(searchParams.toString());
     params.set("songId", song.id.toString());
     router.push(`?${params.toString()}`);
-
-    // The actual state update will happen in the effect below
   };
 
+  /**
+   * Fetches available singers for a specific song.
+   */
   const loadSongData = async (song: Song) => {
     setSelectedSong(song);
     setSelectedSingers([]);
@@ -75,7 +90,9 @@ export function useSongMixerState({
     }
   };
 
-
+  /**
+   * Toggles a singer's selection and updates the URL.
+   */
   const toggleSinger = (singer: Singer) => {
     onStopMix();
 
@@ -99,15 +116,8 @@ export function useSongMixerState({
       }
     }
 
-    // Update local state is handled by URL effect now?
-    // Actually, setting URL should trigger re-render, but it's cleaner to optimistic update or just push URL.
-    // If we rely purely on URL, we might have lag.
-    // Let's mimic handleSongSelect: push to URL, allow effect to sync?
-    // Or just update local state AND push to URL.
-
     setSelectedSingers(newSingers);
 
-    // Update URL
     const params = new URLSearchParams(searchParams.toString());
     if (newSingers.length > 0) {
       const singerIds = newSingers.map((s) => s.characterId).join(",");
@@ -118,17 +128,15 @@ export function useSongMixerState({
     router.replace(`?${params.toString()}`, { scroll: false });
   };
 
-  // ============================================================================
-  // EFFECTS
-  // ============================================================================
-  // Auto-select song from URL/Props
+  /**
+   * Auto-select song based on URL parameters or initial props.
+   */
   useEffect(() => {
     const songIdParam = searchParams.get("songId");
     const targetSongId =
       initialSongId || (songIdParam ? parseInt(songIdParam) : null);
 
     if (targetSongId) {
-      // Only load if it's different from current or current is null
       if (!selectedSong || selectedSong.id !== targetSongId) {
         const song = songs.find((s) => s.id === targetSongId);
         if (song) {
@@ -136,23 +144,21 @@ export function useSongMixerState({
         }
       }
     } else {
-      // If no song ID and we have one selected, clear it (unless it was initial)
       if (selectedSong && !initialSongId) {
         setSelectedSong(null);
         setSelectedSingers([]);
         setAvailableSingers([]);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams, songs, initialSongId]);
 
-  // Sync singers from URL or Initial Props
+  /**
+   * Sync singers from URL parameters or initial props once song data is loaded.
+   */
   useEffect(() => {
     if (availableSingers.length === 0) return;
 
     const singersParam = searchParams.get("singers");
-
-    // Priority: URL Params > Initial Props
     let targetSingerIds: number[] = [];
 
     if (singersParam) {
@@ -166,7 +172,6 @@ export function useSongMixerState({
         targetSingerIds.includes(s.characterId),
       );
 
-      // Avoid infinite loop by checking if different
       const currentIds = selectedSingers
         .map((s) => s.characterId)
         .sort()
@@ -180,7 +185,6 @@ export function useSongMixerState({
         setSelectedSingers(singersToSelect);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [availableSingers, searchParams, initialCharacterId]);
 
   return {
@@ -189,12 +193,17 @@ export function useSongMixerState({
     selectedSingers,
     useAudience,
     volume,
+    singerVolumes,
+    nightcoreMode,
     loadingSingers,
     showLyrics,
     handleSongSelect,
     toggleSinger,
     setUseAudience,
     setVolume,
+    updateSingerVolume,
+    setNightcoreMode,
     setShowLyrics,
   };
 }
+
