@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import * as React from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { AnimatePresence, motion } from "framer-motion";
-import html2canvas from "html2canvas";
+import { domToPng } from "modern-screenshot";
 import { useToast } from "@/components/ui/Toast";
 
 // --------------------------------------------------------
@@ -41,37 +41,31 @@ export function ShareCard({
     setIsGenerating(true);
 
     try {
-      // Small timeout to allow render
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      // Small timeout to allow any pending renders/animations to settle
+      await new Promise((resolve) => setTimeout(resolve, 300));
 
-      const canvas = await html2canvas(cardRef.current, {
-        useCORS: true,
-        scale: 2, // Retina quality
-        backgroundColor: null,
+      const dataUrl = await domToPng(cardRef.current, {
+        scale: 3,
+        backgroundColor: "#1a1a2e",
       });
 
-      const blob = await new Promise<Blob | null>((resolve) =>
-        canvas.toBlob(resolve, "image/png"),
-      );
+      const a = document.createElement("a");
+      a.href = dataUrl;
+      a.download = `umasong-mix-${songName.replace(/\s+/g, "-")}.png`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
 
-      if (blob) {
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = `umasong-mix-${songName.replace(/\s+/g, "-")}.png`;
-        a.click();
-        URL.revokeObjectURL(url);
-        toast({
-          title: "Image Saved",
-          description: "Your mix card has been downloaded!",
-          variant: "success",
-        });
-      }
+      toast({
+        title: "¡Imagen Guardada!",
+        description: "Tu tarjeta de mix ha sido descargada.",
+        variant: "success",
+      });
     } catch (err) {
       console.error("Failed to generate image", err);
       toast({
-        title: "Download Failed",
-        description: "Could not generate image.",
+        title: "Fallo en la descarga",
+        description: "No se pudo generar la imagen. Inténtalo de nuevo.",
         variant: "error",
       });
     } finally {
@@ -108,12 +102,15 @@ export function ShareCard({
                 {/* THE CARD TO CAPTURE */}
                 <div
                   ref={cardRef}
+                  data-card-container="true"
                   className="relative w-[320px] h-[568px] overflow-hidden rounded-2xl shadow-2xl bg-[#1a1a2e] flex flex-col text-white"
                 >
                   {/* Background / Glow */}
                   <div
-                    className="absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_top,_var(--accent),_transparent_70%)]"
-                    style={{ "--accent": accentColor } as React.CSSProperties}
+                    className="absolute inset-0 opacity-40"
+                    style={{
+                      background: `radial-gradient(circle at top, ${accentColor}, transparent 70%)`,
+                    }}
                   />
 
                   {/* Top: Song Info */}
@@ -122,7 +119,6 @@ export function ShareCard({
                       src={coverUrl}
                       alt={songName}
                       className="w-40 h-40 rounded-full border-4 border-white/20 shadow-[0_0_30px_rgba(255,255,255,0.2)]"
-                      crossOrigin="anonymous"
                     />
                     <div className="text-center">
                       <h3 className="text-2xl font-black uppercase tracking-wider drop-shadow-md">
@@ -166,7 +162,6 @@ export function ShareCard({
                               src={s.image}
                               alt={s.name}
                               className="w-full h-full object-cover"
-                              crossOrigin="anonymous"
                             />
                           </div>
                           <span className="text-[10px] font-bold text-white/80 max-w-[60px] truncate">
@@ -220,5 +215,4 @@ export function ShareCard({
       </AnimatePresence>
     </Dialog>
   );
-
 }
